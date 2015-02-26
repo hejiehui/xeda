@@ -1,5 +1,5 @@
 package com.xross.tools.xeda;
 
-public class Actor {
-
+public interface Actor {
+	public void recieve(Message msg);
 }
