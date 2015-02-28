@@ -1,5 +1,4 @@
 package com.xross.tools.xeda;
 
-public class Topic {
-
+public class Topic extends MessageBus {
 }
