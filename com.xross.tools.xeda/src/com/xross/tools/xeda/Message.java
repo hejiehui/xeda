@@ -15,17 +15,12 @@ public class Message<T> implements Serializable {
 	private String name;
 	private Date createTime;
 	
-	private ActorIdentifier sender;
-	private ActorIdentifier receiver;
+//	private ActorIdentifier sender;
+//	private ActorIdentifier receiver;
 	private boolean durable;
+	private int priority;
 	private T load;
 	
-	public ActorIdentifier getSender() {
-		return sender;
-	}
-	public ActorIdentifier getReceiver() {
-		return receiver;
-	}
 	public T getLoad() {
 		return load;
 	}
