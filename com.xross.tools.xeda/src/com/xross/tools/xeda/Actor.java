@@ -1,5 +1,7 @@
 package com.xross.tools.xeda;
 
+import java.util.List;
+
 /**
  * TODO is actor a good name?
  * @author jhhe
@@ -17,4 +19,11 @@ public interface Actor extends Receiver, Replier, Manageable {
 	<K, T> Message<K> request(Message<T> msg);
 	
 	<T> void request(Message<T> msg, Receiver receiver);
+	
+	/**
+	 * Newly added from 2015 
+	 */
+	List<MessageType> getReciveMessageTypes();
+	List<MessageType> getSendMessageTypes();
+	
 }

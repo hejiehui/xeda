@@ -1,0 +1,1 @@
+Revise plugin dependency/remove project dependency from build config
