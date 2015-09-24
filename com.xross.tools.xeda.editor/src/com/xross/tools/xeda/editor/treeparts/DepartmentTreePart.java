@@ -9,13 +9,13 @@ import org.eclipse.gef.editparts.AbstractTreeEditPart;
 import org.eclipse.swt.graphics.Image;
 
 import com.xross.tools.xeda.editor.Activator;
-import com.xross.tools.xeda.editor.model.ActorGroup;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 
-public class StateMachineTreePart extends AbstractTreeEditPart implements PropertyChangeListener {
-	private ActorGroup machine;
-    public StateMachineTreePart(Object model) {
+public class DepartmentTreePart extends AbstractTreeEditPart implements PropertyChangeListener {
+	private DepartmentNode machine;
+    public DepartmentTreePart(Object model) {
         super(model);
-        this.machine = (ActorGroup)model;
+        this.machine = (DepartmentNode)model;
      }
 
     protected List<Object> getModelChildren() {
@@ -26,7 +26,7 @@ public class StateMachineTreePart extends AbstractTreeEditPart implements Proper
     }
     
     protected String getText() {
-    	ActorGroup stateMachine = (ActorGroup)getModel();
+    	DepartmentNode stateMachine = (DepartmentNode)getModel();
     	return stateMachine.getName();
     }
     

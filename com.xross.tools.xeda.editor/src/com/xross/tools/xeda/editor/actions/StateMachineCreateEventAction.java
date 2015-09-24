@@ -9,11 +9,11 @@ import org.eclipse.ui.IWorkbenchPart;
 import com.xross.tools.xeda.editor.XedaDiagramGraphicalEditor;
 import com.xross.tools.xeda.editor.commands.AddEventCommand;
 import com.xross.tools.xeda.editor.model.MessageType;
-import com.xross.tools.xeda.editor.model.ActorGroup;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 
 public class StateMachineCreateEventAction extends WorkbenchPartAction implements StateMachineActionConstants, StateMachineMessages{
-	private ActorGroup machine;
-	public StateMachineCreateEventAction(IWorkbenchPart part, ActorGroup machine){
+	private DepartmentNode machine;
+	public StateMachineCreateEventAction(IWorkbenchPart part, DepartmentNode machine){
 		super(part);
 		setId(ID_PREFIX + CREATE_EVENT);
 		setText(CREATE_EVENT_MSG);

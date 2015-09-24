@@ -15,24 +15,24 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import com.xross.tools.xeda.editor.ContextMenuBuilder;
 import com.xross.tools.xeda.editor.actions.StateMachineCreateEventAction;
-import com.xross.tools.xeda.editor.figures.ActorGroupFigure;
-import com.xross.tools.xeda.editor.model.ActorGroup;
+import com.xross.tools.xeda.editor.figures.DepartmentNodeFigure;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.ActorNode;
-import com.xross.tools.xeda.editor.policies.StateMachineLayoutPolicy;
+import com.xross.tools.xeda.editor.policies.DepartmentLayoutPolicy;
 
-public class StateMachinePart  extends AbstractGraphicalEditPart implements PropertyChangeListener, ContextMenuBuilder {
+public class DepartmentPart extends AbstractGraphicalEditPart implements PropertyChangeListener, ContextMenuBuilder {
     protected List<ActorNode> getModelChildren() {
-    	ActorGroup diagram = (ActorGroup)getModel();
+    	DepartmentNode diagram = (DepartmentNode)getModel();
         return diagram.getNodes();
     }
 
 	protected IFigure createFigure() {
-		IFigure figure  = new ActorGroupFigure();
+		IFigure figure  = new DepartmentNodeFigure();
         return figure;
 	}
 	
 	public IFigure getContentPane(){
-		return ((ActorGroupFigure)getFigure()).getFigure();
+		return ((DepartmentNodeFigure)getFigure()).getFigure();
 	}
 	
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -41,20 +41,20 @@ public class StateMachinePart  extends AbstractGraphicalEditPart implements Prop
 	
 	public void activate() {
 		super.activate();
-		((ActorGroup)getModel()).getListeners().addPropertyChangeListener(this);
+		((DepartmentNode)getModel()).getListeners().addPropertyChangeListener(this);
 	}
 
 	public void deactivate() {
 		super.deactivate();
-		((ActorGroup)getModel()).getListeners().removePropertyChangeListener(this);
+		((DepartmentNode)getModel()).getListeners().removePropertyChangeListener(this);
 	}
 
     protected void createEditPolicies() {
-        installEditPolicy(EditPolicy.LAYOUT_ROLE, new StateMachineLayoutPolicy());
+        installEditPolicy(EditPolicy.LAYOUT_ROLE, new DepartmentLayoutPolicy());
     }
     
 	protected void addChildVisual(EditPart childEditPart, int index) {
-		ActorGroupFigure figure = (ActorGroupFigure)getFigure();
+		DepartmentNodeFigure figure = (DepartmentNodeFigure)getFigure();
 		IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
 		figure.getFigure().add(child);
 	}
@@ -65,8 +65,8 @@ public class StateMachinePart  extends AbstractGraphicalEditPart implements Prop
 	}
 	
     protected void refreshVisuals() {
-    	ActorGroup node = (ActorGroup) getModel();
-    	ActorGroupFigure figure = (ActorGroupFigure)getFigure();
+    	DepartmentNode node = (DepartmentNode) getModel();
+    	DepartmentNodeFigure figure = (DepartmentNodeFigure)getFigure();
     	
        	figure.setName(node.getName(), node.getDescription());
     }
@@ -74,7 +74,7 @@ public class StateMachinePart  extends AbstractGraphicalEditPart implements Prop
 	@Override
 	public void buildContextMenu(IMenuManager menu, IWorkbenchPart editor, ImplementationFinder finder) {
     	menu.add(new Separator());
-    	ActorGroup machine = (ActorGroup)getModel();
+    	DepartmentNode machine = (DepartmentNode)getModel();
     	menu.add(new StateMachineCreateEventAction(editor, machine));
 	}
 }

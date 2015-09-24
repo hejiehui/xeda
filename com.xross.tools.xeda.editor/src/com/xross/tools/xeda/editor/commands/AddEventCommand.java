@@ -3,13 +3,13 @@ package com.xross.tools.xeda.editor.commands;
 import org.eclipse.gef.commands.Command;
 
 import com.xross.tools.xeda.editor.model.MessageType;
-import com.xross.tools.xeda.editor.model.ActorGroup;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 
 public class AddEventCommand extends Command{
-    private ActorGroup stateMachine;
+    private DepartmentNode stateMachine;
     private MessageType event;
     
-    public AddEventCommand(ActorGroup diagram, MessageType event){
+    public AddEventCommand(DepartmentNode diagram, MessageType event){
     	this.stateMachine = diagram;
     	this.event = event;
     }

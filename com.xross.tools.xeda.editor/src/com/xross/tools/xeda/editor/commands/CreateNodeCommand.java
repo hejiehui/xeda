@@ -3,16 +3,16 @@ package com.xross.tools.xeda.editor.commands;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 
-import com.xross.tools.xeda.editor.model.ActorGroup;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.ActorNode;
 
 public class CreateNodeCommand extends Command{
-    private ActorGroup stateMachine;
+    private DepartmentNode stateMachine;
     private ActorNode node;
     private Point location;
     
     public CreateNodeCommand(
-    		ActorGroup stateMachine, 
+    		DepartmentNode stateMachine, 
     		ActorNode node, 
     		Point location){
     	this.stateMachine = stateMachine;

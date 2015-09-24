@@ -4,13 +4,13 @@ import org.eclipse.draw2d.geometry.Point;
 import org.w3c.dom.Document;
 
 import com.xross.tools.xeda.editor.model.MessageType;
-import com.xross.tools.xeda.editor.model.ActorGroup;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.XedaConstants;
 import com.xross.tools.xeda.editor.model.XedaDiagram;
 import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
 
-public class StateMachineDiagramFactory implements XedaConstants{
+public class XedaDiagramFactory implements XedaConstants{
 	public static final String LOCATION = "location";
 	
 	public XedaDiagram getEmptyDiagram(){
@@ -24,8 +24,8 @@ public class StateMachineDiagramFactory implements XedaConstants{
 		return smd;
 	}
 	
-	private ActorGroup createStateMachine(String name, int num){
-		ActorGroup sm = new ActorGroup();
+	private DepartmentNode createStateMachine(String name, int num){
+		DepartmentNode sm = new DepartmentNode();
 		sm.setName(name);
 		
 		ActorNode a = new ActorNode();
@@ -51,8 +51,8 @@ public class StateMachineDiagramFactory implements XedaConstants{
 		return sm;
 	}
 	
-	private StateMachineDiagramReader reader = new StateMachineDiagramReader();
-	private StateMachineDiagramWriter writer = new StateMachineDiagramWriter();
+	private XedaDiagramReader reader = new XedaDiagramReader();
+	private XedaDiagramWriter writer = new XedaDiagramWriter();
 	public XedaDiagram getFromDocument(Document doc){
 		return reader.getFromDocument(doc);
 	}

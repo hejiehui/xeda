@@ -5,12 +5,12 @@ import org.eclipse.gef.RequestConstants;
 
 import com.xross.tools.xeda.editor.model.XedaDiagram;
 
-public class StateMachineLayoutRequest extends Request {
+public class DepartmentLayoutRequest extends Request {
 	private XedaDiagram diagram;
 	private boolean isHorizantal;
 	private float alignment;
 	
-	public StateMachineLayoutRequest(XedaDiagram diagram, boolean isHorizantal, float alignment){
+	public DepartmentLayoutRequest(XedaDiagram diagram, boolean isHorizantal, float alignment){
 		super(RequestConstants.REQ_ALIGN);
 		this.diagram = diagram;
 		this.alignment = alignment;

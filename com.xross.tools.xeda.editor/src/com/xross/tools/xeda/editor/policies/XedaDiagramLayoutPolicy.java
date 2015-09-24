@@ -8,10 +8,10 @@ import org.eclipse.gef.requests.CreateRequest;
 
 import com.xross.tools.xeda.editor.commands.AddStateMachineCommand;
 import com.xross.tools.xeda.editor.commands.CreateStateMachineCommand;
-import com.xross.tools.xeda.editor.model.ActorGroup;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.XedaDiagram;
 
-public class StateMachineDiagramLayoutPolicy extends FlowLayoutEditPolicy {
+public class XedaDiagramLayoutPolicy extends FlowLayoutEditPolicy {
 	/**
 	 * @return <code>true</code> if the host's LayoutManager is in a horizontal
 	 *         orientation
@@ -21,12 +21,12 @@ public class StateMachineDiagramLayoutPolicy extends FlowLayoutEditPolicy {
 	}
 
 	protected Command getCreateCommand(CreateRequest request) {
-		if(!(request.getNewObject() instanceof ActorGroup))
+		if(!(request.getNewObject() instanceof DepartmentNode))
 			return null;
         
 		return new CreateStateMachineCommand(
         		(XedaDiagram)getHost().getModel(),
-        		(ActorGroup)request.getNewObject(), getIndex(request));
+        		(DepartmentNode)request.getNewObject(), getIndex(request));
     }
 
 	@Override
@@ -36,12 +36,12 @@ public class StateMachineDiagramLayoutPolicy extends FlowLayoutEditPolicy {
 
 	@Override
 	protected Command createMoveChildCommand(EditPart child, EditPart after) {
-    	if(!(child.getModel() instanceof ActorGroup))
+    	if(!(child.getModel() instanceof DepartmentNode))
     		return null;
 
     	return new AddStateMachineCommand(
         		(XedaDiagram)getHost().getModel(),
-        		(ActorGroup)child.getModel(),
+        		(DepartmentNode)child.getModel(),
         		getIndex(after)
         		);
 	}
@@ -56,7 +56,7 @@ public class StateMachineDiagramLayoutPolicy extends FlowLayoutEditPolicy {
 		if(after == null)
 			index = container.getMachines().size();
 		else
-			index = container.getMachines().indexOf((ActorGroup)after.getModel());
+			index = container.getMachines().indexOf((DepartmentNode)after.getModel());
 		
 		return index;
 	}

@@ -14,15 +14,15 @@ import com.xross.tools.xeda.editor.commands.CreateNodeCommand;
 import com.xross.tools.xeda.editor.commands.LayoutStateMachineCommand;
 import com.xross.tools.xeda.editor.commands.MoveNodeCommand;
 import com.xross.tools.xeda.editor.commands.ResizeNodeCommand;
-import com.xross.tools.xeda.editor.model.ActorGroup;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.ActorNode;
-import com.xross.tools.xeda.editor.requests.StateMachineLayoutRequest;
-import com.xross.tools.xeda.editor.requests.StateNodeResizeRequest;
+import com.xross.tools.xeda.editor.requests.DepartmentLayoutRequest;
+import com.xross.tools.xeda.editor.requests.ActorNodeResizeRequest;
 
-public class StateMachineLayoutPolicy extends XYLayoutEditPolicy {
+public class DepartmentLayoutPolicy extends XYLayoutEditPolicy {
 
     protected Command createAddCommand(EditPart child, Object constraint) {
-    	if(!(getHost().getModel() instanceof ActorGroup))
+    	if(!(getHost().getModel() instanceof DepartmentNode))
     		return null;
     	
     	if(!(child.getModel() instanceof ActorNode))
@@ -30,9 +30,9 @@ public class StateMachineLayoutPolicy extends XYLayoutEditPolicy {
 
     	Rectangle constr = (Rectangle)constraint;
     	return new AddStateNodeCommand(
-        		(ActorGroup)getHost().getModel(),
+        		(DepartmentNode)getHost().getModel(),
         		(ActorNode)child.getModel(),
-        		(ActorGroup)child.getParent().getModel(),
+        		(DepartmentNode)child.getParent().getModel(),
         		constr.getTopLeft()
         		);
     }
@@ -49,7 +49,7 @@ public class StateMachineLayoutPolicy extends XYLayoutEditPolicy {
 
     public Command getCommand(Request request) {
     	if(request.getType() == RequestConstants.REQ_ALIGN){
-    		StateMachineLayoutRequest layoutReq = (StateMachineLayoutRequest)request;
+    		DepartmentLayoutRequest layoutReq = (DepartmentLayoutRequest)request;
     		return new LayoutStateMachineCommand(layoutReq.getDiagram(), layoutReq.isHorizantal(), layoutReq.getAlignment());
     	}
     	
@@ -65,7 +65,7 @@ public class StateMachineLayoutPolicy extends XYLayoutEditPolicy {
     	if(!(request.getNewObject() instanceof ActorNode))
 			return null;
         return new CreateNodeCommand(
-        		(ActorGroup)getHost().getModel(),
+        		(DepartmentNode)getHost().getModel(),
         		(ActorNode)request.getNewObject(),
         		((Rectangle) getConstraintFor(request)).getLocation());
     }

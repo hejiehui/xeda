@@ -2,16 +2,16 @@ package com.xross.tools.xeda.editor.commands;
 
 import org.eclipse.gef.commands.Command;
 
-import com.xross.tools.xeda.editor.model.ActorGroup;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
 
 public class DeleteNodeCommand extends Command{
-    private ActorGroup stateMachine;
+    private DepartmentNode stateMachine;
     private ActorNode node;
     
     public DeleteNodeCommand(
-    		ActorGroup stateMachine, 
+    		DepartmentNode stateMachine, 
     		ActorNode node){
     	this.stateMachine = stateMachine;
     	this.node = node;

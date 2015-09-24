@@ -7,13 +7,13 @@ import org.eclipse.gef.editparts.AbstractTreeEditPart;
 import org.eclipse.swt.graphics.Image;
 
 import com.xross.tools.xeda.editor.Activator;
-import com.xross.tools.xeda.editor.model.MessageEndNode;
-import com.xross.tools.xeda.editor.model.MessageStartNode;
+import com.xross.tools.xeda.editor.model.TopicNode;
+import com.xross.tools.xeda.editor.model.QueueNode;
 import com.xross.tools.xeda.editor.model.ActorNode;
 
-public class StateNodeTreePart extends AbstractTreeEditPart implements PropertyChangeListener {
+public class ActorNodeTreePart extends AbstractTreeEditPart implements PropertyChangeListener {
 	private ActorNode node;
-	public StateNodeTreePart(Object model) {
+	public ActorNodeTreePart(Object model) {
         super(model);
         this.node = (ActorNode)model;
     }
@@ -23,10 +23,10 @@ public class StateNodeTreePart extends AbstractTreeEditPart implements PropertyC
     }
     
     protected Image getImage() {
-    	if(node instanceof MessageStartNode)
+    	if(node instanceof QueueNode)
     		return Activator.getDefault().getImage(Activator.START_NODE);
     	
-    	if(node instanceof MessageEndNode)
+    	if(node instanceof TopicNode)
     		return Activator.getDefault().getImage(Activator.END_NODE);
     	
     	return Activator.getDefault().getImage(Activator.STATE_NODE);

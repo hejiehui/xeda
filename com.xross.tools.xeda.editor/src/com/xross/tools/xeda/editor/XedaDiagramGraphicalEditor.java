@@ -45,16 +45,16 @@ import org.w3c.dom.Document;
 import com.xross.tools.xeda.editor.actions.StateMachineCreateEventAction;
 import com.xross.tools.xeda.editor.actions.StateMachineJunitCodeGenAction;
 import com.xross.tools.xeda.editor.actions.StateMachineUsageCodeGenAction;
-import com.xross.tools.xeda.editor.io.StateMachineDiagramFactory;
+import com.xross.tools.xeda.editor.io.XedaDiagramFactory;
 import com.xross.tools.xeda.editor.model.XedaDiagram;
-import com.xross.tools.xeda.editor.parts.StateMachinePartFactory;
-import com.xross.tools.xeda.editor.treeparts.StateMachineTreePartFactory;
+import com.xross.tools.xeda.editor.parts.XedaPartFactory;
+import com.xross.tools.xeda.editor.treeparts.XedaTreePartFactory;
 
 public class XedaDiagramGraphicalEditor extends GraphicalEditorWithPalette {
     private XedaDiagram diagram;
     private PaletteRoot paletteRoot;
     
-    private StateMachineDiagramFactory diagramFactory = new StateMachineDiagramFactory();
+    private XedaDiagramFactory diagramFactory = new XedaDiagramFactory();
     
     private CommandStackListener commandStackListener = new CommandStackListener() {
         public void commandStackChanged(EventObject event) {
@@ -70,7 +70,7 @@ public class XedaDiagramGraphicalEditor extends GraphicalEditorWithPalette {
     	ScalableFreeformRootEditPart root = new ScalableFreeformRootEditPart();
         super.configureGraphicalViewer();
         getGraphicalViewer().setRootEditPart(root);
-        getGraphicalViewer().setEditPartFactory(new StateMachinePartFactory());
+        getGraphicalViewer().setEditPartFactory(new XedaPartFactory());
         getGraphicalViewer().setContextMenu(new XedaContextMenuProvider(getGraphicalViewer(), this));
         initActions(root);
         getCommandStack().addCommandStackListener(commandStackListener);
@@ -215,7 +215,7 @@ public class XedaDiagramGraphicalEditor extends GraphicalEditorWithPalette {
             outline = getViewer().createControl(parent);
             getSelectionSynchronizer().addViewer(getViewer());
             getViewer().setEditDomain(getEditDomain());
-            getViewer().setEditPartFactory(new StateMachineTreePartFactory());
+            getViewer().setEditPartFactory(new XedaTreePartFactory());
             getViewer().setContents(diagram);
         }
 

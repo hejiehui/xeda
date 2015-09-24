@@ -12,7 +12,7 @@ public class XedaDiagram implements XedaConstants, IPropertySource {
 	private String name;
 	private String description;
 
-	private List<ActorGroup> machines = new ArrayList<ActorGroup>();
+	private List<DepartmentNode> machines = new ArrayList<DepartmentNode>();
 	
 	private boolean isHorizantal;
 	private int verticalSpace = 50;
@@ -67,29 +67,29 @@ public class XedaDiagram implements XedaConstants, IPropertySource {
 		return value == null? "" : value;
 	}
 
-	public List<ActorGroup> getMachines() {
+	public List<DepartmentNode> getMachines() {
 		return machines;
 	}
 
-	public void setMachines(List<ActorGroup> machines) {
+	public void setMachines(List<DepartmentNode> machines) {
 		this.machines = machines;
 	}
 
-	public void addMachine(int index, ActorGroup machine) {
+	public void addMachine(int index, DepartmentNode machine) {
 		machines.add(index, machine);
 		firePropertyChange(PROP_LAYOUT);
 	}
 
-	public void removeMachine(ActorGroup machine) {
+	public void removeMachine(DepartmentNode machine) {
 		machines.remove(machine);
 		firePropertyChange(PROP_LAYOUT);
 	}
 	
-	public int indexOf(ActorGroup machine) {
+	public int indexOf(DepartmentNode machine) {
 		return machines.indexOf(machine);
 	}
 	
-	public void move(int newIndex, ActorGroup machine) {
+	public void move(int newIndex, DepartmentNode machine) {
 		int index = machines.indexOf(machine);
 		if(index < newIndex)
 			newIndex-=1;

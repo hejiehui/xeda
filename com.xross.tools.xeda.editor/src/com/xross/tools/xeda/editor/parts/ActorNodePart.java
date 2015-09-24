@@ -32,10 +32,10 @@ import com.xross.tools.xeda.editor.figures.ActorNodeFigure;
 import com.xross.tools.xeda.editor.model.XedaConstants;
 import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
-import com.xross.tools.xeda.editor.policies.StateMachineGraphicNodeEditPolicy;
-import com.xross.tools.xeda.editor.policies.StateNodeComponentEditPolicy;
+import com.xross.tools.xeda.editor.policies.DepartmentGraphicNodeEditPolicy;
+import com.xross.tools.xeda.editor.policies.ActorNodeComponentEditPolicy;
 
-public class StateNodePart extends AbstractGraphicalEditPart implements XedaConstants, PropertyChangeListener, NodeEditPart, ContextMenuBuilder {
+public class ActorNodePart extends AbstractGraphicalEditPart implements XedaConstants, PropertyChangeListener, NodeEditPart, ContextMenuBuilder {
 	protected IFigure createFigure() {
         return new ActorNodeFigure();
     }
@@ -57,8 +57,8 @@ public class StateNodePart extends AbstractGraphicalEditPart implements XedaCons
 	}
 	
 	protected void createEditPolicies() {
-		installEditPolicy(EditPolicy.COMPONENT_ROLE, new StateNodeComponentEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new StateMachineGraphicNodeEditPolicy());
+		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ActorNodeComponentEditPolicy());
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new DepartmentGraphicNodeEditPolicy());
 	}
 	
 	public ActorNode getStateNode() {

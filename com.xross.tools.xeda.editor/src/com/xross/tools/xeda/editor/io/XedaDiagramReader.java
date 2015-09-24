@@ -13,15 +13,15 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.xross.tools.xeda.XedaDiagramConstants;
-import com.xross.tools.xeda.editor.model.MessageEndNode;
+import com.xross.tools.xeda.editor.model.TopicNode;
 import com.xross.tools.xeda.editor.model.MessageType;
-import com.xross.tools.xeda.editor.model.MessageStartNode;
-import com.xross.tools.xeda.editor.model.ActorGroup;
+import com.xross.tools.xeda.editor.model.QueueNode;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.XedaDiagram;
 import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
 
-public class StateMachineDiagramReader implements XedaDiagramConstants {
+public class XedaDiagramReader implements XedaDiagramConstants {
 	public XedaDiagram getFromDocument(Document doc){
 		XedaDiagram model = new XedaDiagram();
 		Element root = doc.getDocumentElement();
@@ -33,17 +33,17 @@ public class StateMachineDiagramReader implements XedaDiagramConstants {
 		return model;
 	}
 	
-	private List<ActorGroup> readMachines(Node machinesNode) {
+	private List<DepartmentNode> readMachines(Node machinesNode) {
 		NodeList machines = machinesNode.getChildNodes();
-		List<ActorGroup> machineList = new ArrayList<ActorGroup>();
+		List<DepartmentNode> machineList = new ArrayList<DepartmentNode>();
 		for(int i = 0;i < machines.getLength(); i++) {
 			machineList.add(readMachine(machines.item(i)));
 		}
 		return machineList;
 	}
 	
-	private ActorGroup readMachine(Node machineNode) {
-		ActorGroup machine = new ActorGroup();
+	private DepartmentNode readMachine(Node machineNode) {
+		DepartmentNode machine = new DepartmentNode();
 		machine.setName(getChildNodeText(machineNode, NAME));
 		machine.setDescription(getChildNodeText(machineNode, DESCRIPTION));
 
@@ -85,15 +85,15 @@ public class StateMachineDiagramReader implements XedaDiagramConstants {
 	
 	private ActorNode createStateNode(Node stateNode) {
 		if(stateNode.getNodeName().equals(START_STATE))
-			return new MessageStartNode();
+			return new QueueNode();
 		else
 			if(stateNode.getNodeName().equals(END_STATE))
-			return new MessageEndNode();
+			return new TopicNode();
 		else
 			return new ActorNode();
 
 	}
-	private void linkState(ActorGroup machine, Node transitionsNode) {
+	private void linkState(DepartmentNode machine, Node transitionsNode) {
 		NodeList transitions = transitionsNode.getChildNodes();
 		Map<String, ActorNode> states = new HashMap<String, ActorNode>();
 		Map<String, MessageType> events = new HashMap<String, MessageType>();

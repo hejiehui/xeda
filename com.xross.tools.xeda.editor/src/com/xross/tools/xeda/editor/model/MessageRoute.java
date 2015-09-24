@@ -8,6 +8,7 @@ import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 public class MessageRoute implements XedaConstants, IPropertySource {
+	private String routeId;
 	private MessageType event;
 	private String transitAction;
 	private ActorNode source;

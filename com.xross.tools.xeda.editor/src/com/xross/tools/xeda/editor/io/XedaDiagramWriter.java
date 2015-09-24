@@ -8,15 +8,15 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.xross.tools.xeda.XedaDiagramConstants;
-import com.xross.tools.xeda.editor.model.MessageEndNode;
+import com.xross.tools.xeda.editor.model.TopicNode;
 import com.xross.tools.xeda.editor.model.MessageType;
-import com.xross.tools.xeda.editor.model.MessageStartNode;
-import com.xross.tools.xeda.editor.model.ActorGroup;
+import com.xross.tools.xeda.editor.model.QueueNode;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.XedaDiagram;
 import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
 
-public class StateMachineDiagramWriter implements XedaDiagramConstants {
+public class XedaDiagramWriter implements XedaDiagramConstants {
 	public Document writeToDocument(XedaDiagram model){
 		Document doc = null;
 		try {
@@ -37,13 +37,13 @@ public class StateMachineDiagramWriter implements XedaDiagramConstants {
 	}
 	
 	private void writeMachines(Document doc, Element machinesNode, XedaDiagram model) {
-		for(ActorGroup machine: model.getMachines()) {
+		for(DepartmentNode machine: model.getMachines()) {
 			Element machineNode = createNode(doc, machinesNode, STATE_MACHINE);
 			writeMachine(doc, machineNode, machine);
 		}
 	}
 	
-	private void writeMachine(Document doc, Element machineNode, ActorGroup machine) {
+	private void writeMachine(Document doc, Element machineNode, DepartmentNode machine) {
 		createNameDesc(doc, machineNode, machine.getName(), machine.getDescription());
 		
 		Element statesNode = createNode(doc, machineNode, STATES);
@@ -74,10 +74,10 @@ public class StateMachineDiagramWriter implements XedaDiagramConstants {
 	}
 	
 	private String getNodeType(ActorNode node) {
-		if(node instanceof MessageStartNode)
+		if(node instanceof QueueNode)
 			return START_STATE;
 		else
-		if(node instanceof MessageEndNode)
+		if(node instanceof TopicNode)
 			return END_STATE;
 		else
 			return STATE;

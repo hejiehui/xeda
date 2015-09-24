@@ -5,13 +5,13 @@ import org.eclipse.gef.RequestConstants;
 
 import com.xross.tools.xeda.editor.model.XedaDiagram;
 
-public class StateNodeResizeRequest  extends Request {
+public class ActorNodeResizeRequest  extends Request {
 	private XedaDiagram diagram;
 	private boolean horizantal;
 	private boolean nodeSize;
 	private boolean increase;
 	
-	public StateNodeResizeRequest(XedaDiagram diagram, boolean nodeSize, boolean horizantal, boolean increase){
+	public ActorNodeResizeRequest(XedaDiagram diagram, boolean nodeSize, boolean horizantal, boolean increase){
 		super(RequestConstants.REQ_RESIZE);
 		this.diagram = diagram;
 		this.horizantal = horizantal;

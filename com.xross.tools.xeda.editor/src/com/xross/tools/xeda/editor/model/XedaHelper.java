@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class XedaHelper implements XedaConstants {
-	private ActorGroup machine;
+	private DepartmentNode machine;
 	
-	public XedaHelper(ActorGroup machine) {
+	public XedaHelper(DepartmentNode machine) {
 		this.machine = machine;
 	}
 	

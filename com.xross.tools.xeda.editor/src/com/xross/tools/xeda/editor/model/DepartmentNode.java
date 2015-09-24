@@ -8,7 +8,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
-public class ActorGroup implements XedaConstants, IPropertySource {
+public class DepartmentNode implements XedaConstants, IPropertySource {
 	private String name;
 	private String description;
 

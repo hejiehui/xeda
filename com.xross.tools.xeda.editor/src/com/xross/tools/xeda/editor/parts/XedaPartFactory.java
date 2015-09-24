@@ -3,14 +3,14 @@ package com.xross.tools.xeda.editor.parts;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 
-import com.xross.tools.xeda.editor.model.MessageEndNode;
-import com.xross.tools.xeda.editor.model.MessageStartNode;
-import com.xross.tools.xeda.editor.model.ActorGroup;
+import com.xross.tools.xeda.editor.model.TopicNode;
+import com.xross.tools.xeda.editor.model.QueueNode;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.XedaDiagram;
 import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
 
-public class StateMachinePartFactory implements EditPartFactory {
+public class XedaPartFactory implements EditPartFactory {
 	public EditPart createEditPart(EditPart context, Object model) {
 		EditPart part = null;
 		
@@ -18,22 +18,22 @@ public class StateMachinePartFactory implements EditPartFactory {
 			part = null;
 		else
 		if(model instanceof XedaDiagram)
-			part = new StateMachineDiagramPart();
+			part = new XedaDiagramPart();
 		else
-		if(model instanceof ActorGroup)
-			part = new StateMachinePart();
+		if(model instanceof DepartmentNode)
+			part = new DepartmentPart();
 		else
-		if(model instanceof MessageStartNode)
-			part = new StartNodePart();
+		if(model instanceof QueueNode)
+			part = new QueueNodePart();
 		else
-		if(model instanceof MessageEndNode)
-			part = new EndNodePart();
+		if(model instanceof TopicNode)
+			part = new TopicNodePart();
 		else
 		if(model instanceof ActorNode)
-			part = new StateNodePart();
+			part = new ActorNodePart();
 		else
 		if(model instanceof MessageRoute)
-			part = new StateTransitionPart();
+			part = new MessageRoutePart();
 		
 		part.setModel(model);
 		

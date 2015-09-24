@@ -24,9 +24,9 @@ import com.xross.tools.xeda.editor.actions.StateMachineCreateTransitionAction;
 import com.xross.tools.xeda.editor.actions.StateMachineOpenTransitionAction;
 import com.xross.tools.xeda.editor.actions.StateMachineRemoveTransitionAction;
 import com.xross.tools.xeda.editor.model.MessageRoute;
-import com.xross.tools.xeda.editor.policies.StateTransitionComponentEditPolicy;
+import com.xross.tools.xeda.editor.policies.MessageRouteComponentEditPolicy;
 
-public class StateTransitionPart extends AbstractConnectionEditPart implements PropertyChangeListener, ContextMenuBuilder {
+public class MessageRoutePart extends AbstractConnectionEditPart implements PropertyChangeListener, ContextMenuBuilder {
 	private Label label;
     protected IFigure createFigure() {
         PolylineConnection conn = new PolylineConnection();
@@ -44,7 +44,7 @@ public class StateTransitionPart extends AbstractConnectionEditPart implements P
     }
 
     protected void createEditPolicies() {
-        installEditPolicy(EditPolicy.COMPONENT_ROLE, new StateTransitionComponentEditPolicy());
+        installEditPolicy(EditPolicy.COMPONENT_ROLE, new MessageRouteComponentEditPolicy());
         installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, new ConnectionEndpointEditPolicy());
     }
 

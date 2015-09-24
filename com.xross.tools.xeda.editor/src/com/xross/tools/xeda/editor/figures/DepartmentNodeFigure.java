@@ -12,10 +12,10 @@ import org.eclipse.draw2d.geometry.Dimension;
 
 import com.xross.tools.xeda.editor.model.XedaConstants;
 
-public class ActorGroupFigure extends Figure implements XedaConstants{
+public class DepartmentNodeFigure extends Figure implements XedaConstants{
 	private Label label;
 	private IFigure figure;
-    public ActorGroupFigure() {
+    public DepartmentNodeFigure() {
 //      figure = new FreeformLayer();
 //      figure.setLayoutManager(new FreeformLayout());
 

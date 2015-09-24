@@ -17,9 +17,9 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import com.xross.tools.xeda.editor.model.XedaDiagram;
-import com.xross.tools.xeda.editor.policies.StateMachineDiagramLayoutPolicy;
+import com.xross.tools.xeda.editor.policies.XedaDiagramLayoutPolicy;
 
-public class StateMachineDiagramPart extends AbstractGraphicalEditPart implements PropertyChangeListener{
+public class XedaDiagramPart extends AbstractGraphicalEditPart implements PropertyChangeListener{
 	private Figure panel;
 	protected List getModelChildren() {
 		return ((XedaDiagram)getModel()).getMachines();
@@ -67,6 +67,6 @@ public class StateMachineDiagramPart extends AbstractGraphicalEditPart implement
 	}
 
 	protected void createEditPolicies() {
-        installEditPolicy(EditPolicy.LAYOUT_ROLE, new StateMachineDiagramLayoutPolicy());
+        installEditPolicy(EditPolicy.LAYOUT_ROLE, new XedaDiagramLayoutPolicy());
 	}
 }

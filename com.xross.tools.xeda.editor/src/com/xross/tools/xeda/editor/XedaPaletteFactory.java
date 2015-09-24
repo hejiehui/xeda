@@ -15,9 +15,9 @@ import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.requests.SimpleFactory;
 
-import com.xross.tools.xeda.editor.model.MessageEndNode;
-import com.xross.tools.xeda.editor.model.MessageStartNode;
-import com.xross.tools.xeda.editor.model.ActorGroup;
+import com.xross.tools.xeda.editor.model.TopicNode;
+import com.xross.tools.xeda.editor.model.QueueNode;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.ActorNode;
 
 public class XedaPaletteFactory {
@@ -37,10 +37,10 @@ public class XedaPaletteFactory {
     }
     
     private static Object[][] ENTRIES = new Object[][]{
-    	{"State Machine", ActorGroup.class, Activator.STATE_MACHINE},
+    	{"State Machine", DepartmentNode.class, Activator.STATE_MACHINE},
     	{"State Node", ActorNode.class, Activator.STATE_NODE},
-    	{"Start Node", MessageStartNode.class, Activator.START_NODE},
-    	{"End Node", MessageEndNode.class, Activator.END_NODE},
+    	{"Start Node", QueueNode.class, Activator.START_NODE},
+    	{"End Node", TopicNode.class, Activator.END_NODE},
     };
 
     private PaletteContainer createControlGroup(PaletteRoot root) {

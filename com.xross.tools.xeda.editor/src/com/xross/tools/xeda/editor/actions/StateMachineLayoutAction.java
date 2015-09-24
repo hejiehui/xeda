@@ -6,7 +6,7 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import com.xross.tools.xeda.editor.XedaDiagramGraphicalEditor;
 import com.xross.tools.xeda.editor.model.XedaDiagram;
-import com.xross.tools.xeda.editor.requests.StateMachineLayoutRequest;
+import com.xross.tools.xeda.editor.requests.DepartmentLayoutRequest;
 
 public class StateMachineLayoutAction extends WorkbenchPartAction implements StateMachineActionConstants {
 	private boolean horizantal;
@@ -25,7 +25,7 @@ public class StateMachineLayoutAction extends WorkbenchPartAction implements Sta
 	
 	private Command createAlignmentCommand() {
 		XedaDiagramGraphicalEditor editor = (XedaDiagramGraphicalEditor)getWorkbenchPart();
-		StateMachineLayoutRequest request = new StateMachineLayoutRequest((XedaDiagram)editor.getRootEditPart().getContents().getModel(), horizantal, alignment);
+		DepartmentLayoutRequest request = new DepartmentLayoutRequest((XedaDiagram)editor.getRootEditPart().getContents().getModel(), horizantal, alignment);
 		return editor.getRootEditPart().getContents().getCommand(request);
 	}
 

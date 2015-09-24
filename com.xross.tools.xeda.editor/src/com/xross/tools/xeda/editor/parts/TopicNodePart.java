@@ -19,17 +19,17 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.tools.DirectEditManager;
 
-import com.xross.tools.xeda.editor.Activator;
-import com.xross.tools.xeda.editor.model.XedaConstants;
+import com.xross.tools.xeda.editor.figures.TopicNodeFigure;
 import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
-import com.xross.tools.xeda.editor.policies.StateMachineGraphicNodeEditPolicy;
-import com.xross.tools.xeda.editor.policies.StateNodeComponentEditPolicy;
+import com.xross.tools.xeda.editor.model.XedaConstants;
+import com.xross.tools.xeda.editor.policies.DepartmentGraphicNodeEditPolicy;
+import com.xross.tools.xeda.editor.policies.ActorNodeComponentEditPolicy;
 
-public class EndNodePart extends AbstractGraphicalEditPart implements XedaConstants, PropertyChangeListener, NodeEditPart {
+public class TopicNodePart extends AbstractGraphicalEditPart implements XedaConstants, PropertyChangeListener, NodeEditPart {
     private DirectEditManager manager;
 	protected IFigure createFigure() {
-		return new ImageFigure(Activator.getDefault().getImageRegistry().get(Activator.END_NODE));
+		return new TopicNodeFigure();
     }
 	public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
         return new ChopboxAnchor(getFigure());
@@ -59,8 +59,8 @@ public class EndNodePart extends AbstractGraphicalEditPart implements XedaConsta
 	
 	protected void createEditPolicies() {
 //		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new StateNodeDirectEditPolicy(((StateMachine)getParent().getModel()).getFactors()));
-		installEditPolicy(EditPolicy.COMPONENT_ROLE, new StateNodeComponentEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new StateMachineGraphicNodeEditPolicy());
+		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ActorNodeComponentEditPolicy());
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new DepartmentGraphicNodeEditPolicy());
 	}
 	
     protected List<MessageRoute> getModelSourceConnections() {
