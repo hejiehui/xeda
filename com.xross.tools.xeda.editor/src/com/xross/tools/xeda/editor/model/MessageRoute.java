@@ -13,6 +13,7 @@ public class MessageRoute implements XedaConstants, IPropertySource {
 	private String transitAction;
 	private ActorNode source;
 	private ActorNode target;
+	private RouteStyle style;
 	private XedaHelper helper;
 	
 	private PropertyChangeSupport listeners = new PropertyChangeSupport(this);

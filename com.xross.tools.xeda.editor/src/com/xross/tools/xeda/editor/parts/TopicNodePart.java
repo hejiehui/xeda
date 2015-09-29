@@ -7,7 +7,6 @@ import java.util.List;
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -22,9 +21,10 @@ import org.eclipse.gef.tools.DirectEditManager;
 import com.xross.tools.xeda.editor.figures.TopicNodeFigure;
 import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
+import com.xross.tools.xeda.editor.model.TopicNode;
 import com.xross.tools.xeda.editor.model.XedaConstants;
-import com.xross.tools.xeda.editor.policies.DepartmentGraphicNodeEditPolicy;
 import com.xross.tools.xeda.editor.policies.ActorNodeComponentEditPolicy;
+import com.xross.tools.xeda.editor.policies.DepartmentGraphicNodeEditPolicy;
 
 public class TopicNodePart extends AbstractGraphicalEditPart implements XedaConstants, PropertyChangeListener, NodeEditPart {
     private DirectEditManager manager;
@@ -91,11 +91,11 @@ public class TopicNodePart extends AbstractGraphicalEditPart implements XedaCons
     }
 
     protected void refreshVisuals() {
-    	ActorNode node = (ActorNode) getModel();
-    	ImageFigure figure = (ImageFigure)getFigure();
+    	TopicNode node = (TopicNode) getModel();
+    	TopicNodeFigure figure = (TopicNodeFigure)getFigure();
 
 		Point loc = node.getLocation();
-		Dimension size = figure.getPreferredSize();//node.getSize();
+		Dimension size = figure.getGoodSize();
         Rectangle rectangle = new Rectangle(loc, size);
         ((GraphicalEditPart) getParent()).setLayoutConstraint(this, getFigure(), rectangle);
     }

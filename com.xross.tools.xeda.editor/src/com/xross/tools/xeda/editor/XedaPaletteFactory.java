@@ -38,9 +38,9 @@ public class XedaPaletteFactory {
     
     private static Object[][] ENTRIES = new Object[][]{
     	{"State Machine", DepartmentNode.class, Activator.STATE_MACHINE},
-    	{"State Node", ActorNode.class, Activator.STATE_NODE},
-    	{"Start Node", QueueNode.class, Activator.START_NODE},
-    	{"End Node", TopicNode.class, Activator.END_NODE},
+    	{"Actor Node", ActorNode.class, Activator.ACTOR_NODE},
+    	{"Queue Node", QueueNode.class, Activator.QUEUE_NODE},
+    	{"Topic Node", TopicNode.class, Activator.TOPIC_NODE},
     };
 
     private PaletteContainer createControlGroup(PaletteRoot root) {

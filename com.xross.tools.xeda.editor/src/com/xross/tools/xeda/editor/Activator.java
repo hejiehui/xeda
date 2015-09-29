@@ -19,9 +19,9 @@ public class Activator extends AbstractUIPlugin {
 
 	public static final String STATE_MACHINE_DIAGRAM = "state_machine_diagram";
 	public static final String STATE_MACHINE = "state_machine";
-	public static final String STATE_NODE = "state_node";
-	public static final String START_NODE = "start_node";
-	public static final String END_NODE = "end_node";
+	public static final String ACTOR_NODE = "actor_node";
+	public static final String QUEUE_NODE = "queue_node";
+	public static final String TOPIC_NODE = "radio_24px_1";
 	public static final String TRANSITION = "transition";
 	public static final String ENTRY_ACTION = "end_point";
 	public static final String EXIT_ACTION = "start_point";
@@ -66,9 +66,9 @@ public class Activator extends AbstractUIPlugin {
     protected void initializeImageRegistry(ImageRegistry reg) {
     	put(reg, STATE_MACHINE_DIAGRAM);
     	put(reg, STATE_MACHINE);
-    	put(reg, STATE_NODE);
-    	put(reg, START_NODE);
-    	put(reg, END_NODE);
+    	put(reg, ACTOR_NODE);
+    	put(reg, QUEUE_NODE);
+    	put(reg, TOPIC_NODE);
     	put(reg, TRANSITION);
     	put(reg, ENTRY_ACTION);
 		put(reg, EXIT_ACTION);

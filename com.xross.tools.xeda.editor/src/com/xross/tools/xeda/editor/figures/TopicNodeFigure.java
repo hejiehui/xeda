@@ -21,18 +21,16 @@ public class TopicNodeFigure extends RoundedRectangle {
     	layout.setHorizontal(false);
     	layout.setSpacing(1);
     	layout.setStretchMinorAxis(false);
-    	layout.setMinorAlignment(ToolbarLayout.ALIGN_CENTER);
+    	layout.setMinorAlignment(ToolbarLayout.ALIGN_TOPLEFT);
     	setLayoutManager(layout);
     	this.setBorder(new MarginBorder(5));
     	
-    	ImageFigure entry = new ImageFigure(Activator.getDefault().getImageRegistry().get(Activator.ENTRY_ACTION));
-    	
+    	Label entry = new Label();
+    	entry.setLabelAlignment(PositionConstants.CENTER);
+    	entry.setForegroundColor(ColorConstants.darkGreen);
+    	entry.setIcon(Activator.getDefault().getImageRegistry().get(Activator.TOPIC_NODE));
+    	entry.setText("Topic");
     	add(entry);
-    	
-    	nameLabel = new Label();
-        nameLabel.setLabelAlignment(PositionConstants.CENTER);
-        nameLabel.setForegroundColor(ColorConstants.darkGreen);
-        add(nameLabel);
     	
         Figure line = new RectangleFigure();
         line.setBackgroundColor(ColorConstants.lightGray);

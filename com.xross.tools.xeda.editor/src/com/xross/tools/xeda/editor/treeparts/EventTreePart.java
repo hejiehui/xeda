@@ -8,7 +8,6 @@ import org.eclipse.swt.graphics.Image;
 
 import com.xross.tools.xeda.editor.Activator;
 import com.xross.tools.xeda.editor.model.MessageType;
-import com.xross.tools.xeda.editor.model.ActorNode;
 
 public class EventTreePart extends AbstractTreeEditPart implements PropertyChangeListener {
 	private MessageType event;
@@ -22,7 +21,7 @@ public class EventTreePart extends AbstractTreeEditPart implements PropertyChang
     }
     
     protected Image getImage() {
-    	return Activator.getDefault().getImage(Activator.STATE_NODE);
+    	return Activator.getDefault().getImage(Activator.ACTOR_NODE);
     }
     
 	public void activate() {

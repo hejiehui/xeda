@@ -1,5 +1,6 @@
 package com.xross.tools.xeda;
 
-public class MessageType {
-
+// TODO Should it be MessageSourceTYpe?
+public enum MessageType {
+	queue, topic, direct
 }

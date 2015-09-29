@@ -24,12 +24,12 @@ public class ActorNodeTreePart extends AbstractTreeEditPart implements PropertyC
     
     protected Image getImage() {
     	if(node instanceof QueueNode)
-    		return Activator.getDefault().getImage(Activator.START_NODE);
+    		return Activator.getDefault().getImage(Activator.QUEUE_NODE);
     	
     	if(node instanceof TopicNode)
-    		return Activator.getDefault().getImage(Activator.END_NODE);
+    		return Activator.getDefault().getImage(Activator.TOPIC_NODE);
     	
-    	return Activator.getDefault().getImage(Activator.STATE_NODE);
+    	return Activator.getDefault().getImage(Activator.ACTOR_NODE);
     }
     
 	public void activate() {

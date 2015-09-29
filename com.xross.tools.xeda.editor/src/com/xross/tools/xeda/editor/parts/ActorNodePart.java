@@ -100,9 +100,6 @@ public class ActorNodePart extends AbstractGraphicalEditPart implements XedaCons
 		Dimension size = figure.getGoodSize();
         Rectangle rectangle = new Rectangle(loc, size);
         ((GraphicalEditPart) getParent()).setLayoutConstraint(this, getFigure(), rectangle);
-    	
-       	figure.setExistAction(node.getExitAction());
-       	figure.setEntryAction(node.getEntryAction());
     }
     
 	@Override

@@ -22,9 +22,10 @@ import org.eclipse.gef.tools.DirectEditManager;
 import com.xross.tools.xeda.editor.figures.QueueNodeFigure;
 import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
+import com.xross.tools.xeda.editor.model.QueueNode;
 import com.xross.tools.xeda.editor.model.XedaConstants;
-import com.xross.tools.xeda.editor.policies.DepartmentGraphicNodeEditPolicy;
 import com.xross.tools.xeda.editor.policies.ActorNodeComponentEditPolicy;
+import com.xross.tools.xeda.editor.policies.DepartmentGraphicNodeEditPolicy;
 
 public class QueueNodePart extends AbstractGraphicalEditPart implements XedaConstants, PropertyChangeListener, NodeEditPart {
     private DirectEditManager manager;
@@ -91,11 +92,11 @@ public class QueueNodePart extends AbstractGraphicalEditPart implements XedaCons
     }
 
     protected void refreshVisuals() {
-    	ActorNode node = (ActorNode) getModel();
-    	ImageFigure figure = (ImageFigure)getFigure();
+    	QueueNode node = (QueueNode) getModel();
+    	QueueNodeFigure figure = (QueueNodeFigure)getFigure();
 
 		Point loc = node.getLocation();
-		Dimension size = figure.getPreferredSize();//node.getSize();
+		Dimension size = figure.getGoodSize();
         Rectangle rectangle = new Rectangle(loc, size);
         ((GraphicalEditPart) getParent()).setLayoutConstraint(this, getFigure(), rectangle);
     }

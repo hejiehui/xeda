@@ -13,7 +13,7 @@ public class ActorNode implements XedaConstants, IPropertySource {
 	private String id;
 	private String reference;
 	private String description;
-	private String entryAction;
+	private String className;
 	private String exitAction;
 	private List<MessageRoute> inputs = new ArrayList<MessageRoute>();
 	private List<MessageRoute> outputs = new ArrayList<MessageRoute>();
@@ -52,7 +52,7 @@ public class ActorNode implements XedaConstants, IPropertySource {
 		if (PROP_ID.equals(propName))
 			return getValue(id);
 		if (PROP_ENTRY_ACTION.equals(propName))
-			return getValue(entryAction);
+			return getValue(className);
 		if (PROP_EXIT_ACTION.equals(propName))
 			return getValue(exitAction);
 		if (PROP_REFERENCE.equals(propName))
@@ -108,10 +108,10 @@ public class ActorNode implements XedaConstants, IPropertySource {
 		firePropertyChange(PROP_DESRIPTION);
 	}
 	public String getEntryAction() {
-		return entryAction;
+		return className;
 	}
 	public void setEntryAction(String entryAction) {
-		this.entryAction = entryAction;
+		this.className = entryAction;
 		firePropertyChange(PROP_ENTRY_ACTION);
 	}
 	public String getExitAction() {
