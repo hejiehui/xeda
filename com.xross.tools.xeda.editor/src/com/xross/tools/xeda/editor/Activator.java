@@ -18,8 +18,8 @@ public class Activator extends AbstractUIPlugin {
 	public static final String JPG = ".jpg";
 
 	public static final String STATE_MACHINE_DIAGRAM = "state_machine_diagram";
-	public static final String STATE_MACHINE = "state_machine";
-	public static final String ACTOR_NODE = "actor_24x_5";
+	public static final String STATE_MACHINE = "department_24px_1";
+	public static final String ACTOR_NODE = "actor_24px_5";
 	public static final String QUEUE_NODE = "queue_node";
 	public static final String TOPIC_NODE = "radio_24px_1";
 	public static final String TRANSITION = "transition";

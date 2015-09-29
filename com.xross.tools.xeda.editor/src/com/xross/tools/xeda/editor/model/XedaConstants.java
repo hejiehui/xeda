@@ -28,5 +28,5 @@ public interface XedaConstants {
 	String EMPTY_VALUE = "";
 
 	
-	int TOP_LEVEL_SPACE = 50;
+	int TOP_LEVEL_SPACE = 10;
 }
