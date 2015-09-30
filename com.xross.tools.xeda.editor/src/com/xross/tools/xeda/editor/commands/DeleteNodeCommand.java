@@ -19,11 +19,11 @@ public class DeleteNodeCommand extends Command{
     
     public void execute() {
         for(MessageRoute transition: node.getOutputs()){
-        	transition.getTarget().getInputs().remove(transition);
+        	transition.getTarget().removeInput(transition);
         }
         
         for(MessageRoute transition: node.getInputs()){
-        	transition.getSource().getOutputs().remove(transition);
+        	transition.getSource().removeOutput(transition);
         }
         
     	stateMachine.removeNode(node);
@@ -40,11 +40,11 @@ public class DeleteNodeCommand extends Command{
     public void undo() {
     	stateMachine.addNode(node);
         for(MessageRoute transition: node.getOutputs()){
-        	transition.getTarget().getInputs().add(transition);
+        	transition.getTarget().addInput(transition);
         }
         
         for(MessageRoute transition: node.getInputs()){
-        	transition.getSource().getOutputs().add(transition);
+        	transition.getSource().addOutput(transition);
         }
     }
 }

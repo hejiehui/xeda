@@ -119,7 +119,6 @@ public abstract class BaseNode implements XedaConstants, IPropertySource {
 		if (!outputs.contains(output))
 			return;
 		outputs.remove(output);
-		output.getTarget().removeInput(output);
 		firePropertyChange(PROP_OUTPUTS);
 	}
 
@@ -134,7 +133,6 @@ public abstract class BaseNode implements XedaConstants, IPropertySource {
 		if (!inputs.contains(input))
 			return;
 		inputs.remove(input);
-		input.getSource().removeOutput(input);
 		firePropertyChange(PROP_INPUTS);
 	}
 
@@ -158,20 +156,5 @@ public abstract class BaseNode implements XedaConstants, IPropertySource {
 	public void addInput(MessageRoute input) {
 		inputs.add(input);
 		firePropertyChange(PROP_INPUTS);
-	}
-
-	public static void removeAllConnections(BaseNode node) {
-		if (node != null)
-			node.removeAllConnections();
-	}
-
-	public static void removeAllInputs(BaseNode node) {
-		if (node != null)
-			node.removeAllInputs();
-	}
-
-	public static void removeAllOutputs(BaseNode node) {
-		if (node != null)
-			node.removeAllOutputs();
 	}
 }
