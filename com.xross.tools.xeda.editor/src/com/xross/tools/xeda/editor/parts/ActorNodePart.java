@@ -21,7 +21,7 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.IWorkbenchPart;
 
 import com.xross.tools.xeda.editor.ContextMenuBuilder;
-import com.xross.tools.xeda.editor.actions.StateMachineChangeEntryAction;
+import com.xross.tools.xeda.editor.actions.ChangeActorClass;
 import com.xross.tools.xeda.editor.actions.StateMachineChangeExitAction;
 import com.xross.tools.xeda.editor.actions.StateMachineCreateEntryAction;
 import com.xross.tools.xeda.editor.actions.StateMachineCreateExitAction;
@@ -33,7 +33,7 @@ import com.xross.tools.xeda.editor.model.XedaConstants;
 import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
 import com.xross.tools.xeda.editor.policies.DepartmentGraphicNodeEditPolicy;
-import com.xross.tools.xeda.editor.policies.ActorNodeComponentEditPolicy;
+import com.xross.tools.xeda.editor.policies.BaseNodeComponentEditPolicy;
 
 public class ActorNodePart extends AbstractGraphicalEditPart implements XedaConstants, PropertyChangeListener, NodeEditPart, ContextMenuBuilder {
 	protected IFigure createFigure() {
@@ -57,7 +57,7 @@ public class ActorNodePart extends AbstractGraphicalEditPart implements XedaCons
 	}
 	
 	protected void createEditPolicies() {
-		installEditPolicy(EditPolicy.COMPONENT_ROLE, new ActorNodeComponentEditPolicy());
+		installEditPolicy(EditPolicy.COMPONENT_ROLE, new BaseNodeComponentEditPolicy());
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new DepartmentGraphicNodeEditPolicy());
 	}
 	
@@ -109,7 +109,7 @@ public class ActorNodePart extends AbstractGraphicalEditPart implements XedaCons
     	if(isEmpty(node.getActorClassName()))
     		menu.add(new StateMachineCreateEntryAction(editor, node, finder));
     	else{
-    		menu.add(new StateMachineChangeEntryAction(editor, node, finder));
+    		menu.add(new ChangeActorClass(editor, node, finder));
     		menu.add(new StateMachineRemoveEntryAction(editor, node));
     		menu.add(new StateMachineOpenExitAction(editor, node, finder));
     	}

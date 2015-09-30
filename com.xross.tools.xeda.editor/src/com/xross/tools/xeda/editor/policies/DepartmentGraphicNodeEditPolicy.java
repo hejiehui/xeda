@@ -8,18 +8,14 @@ import org.eclipse.gef.requests.ReconnectRequest;
 import com.xross.tools.xeda.editor.commands.CreateTransitionCommand;
 import com.xross.tools.xeda.editor.commands.ReconnectSourceCommand;
 import com.xross.tools.xeda.editor.commands.ReconnectTargetCommand;
-import com.xross.tools.xeda.editor.model.ActorNode;
+import com.xross.tools.xeda.editor.model.BaseNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
-import com.xross.tools.xeda.editor.model.QueueNode;
 import com.xross.tools.xeda.editor.model.TopicNode;
 
 public class DepartmentGraphicNodeEditPolicy extends GraphicalNodeEditPolicy {
 	protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
-		if(getHost().getModel() instanceof QueueNode)
-			return null;
-		
 		CreateTransitionCommand cmd = (CreateTransitionCommand)request.getStartCommand();
-		cmd.setTarget((ActorNode)getHost().getModel());
+		cmd.setTarget((BaseNode)getHost().getModel());
 		return cmd;
 	}
 
@@ -28,7 +24,7 @@ public class DepartmentGraphicNodeEditPolicy extends GraphicalNodeEditPolicy {
 			return null;
 		
 		CreateTransitionCommand cmd = new CreateTransitionCommand();
-		cmd.setSource((ActorNode)getHost().getModel());
+		cmd.setSource((BaseNode)getHost().getModel());
 		request.setStartCommand(cmd);
 		return cmd;
 	}
@@ -36,13 +32,13 @@ public class DepartmentGraphicNodeEditPolicy extends GraphicalNodeEditPolicy {
 	protected Command getReconnectSourceCommand(ReconnectRequest request) {
 		return new ReconnectSourceCommand(
 				(MessageRoute)request.getConnectionEditPart().getModel(), 
-				(ActorNode)getHost().getModel());
+				(BaseNode)getHost().getModel());
 	}
 
 	protected Command getReconnectTargetCommand(ReconnectRequest request) {
 		return new ReconnectTargetCommand(
 				(MessageRoute)request.getConnectionEditPart().getModel(), 
-				(ActorNode)getHost().getModel());
+				(BaseNode)getHost().getModel());
 	}
 
 }

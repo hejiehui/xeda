@@ -3,10 +3,10 @@ package com.xross.tools.xeda.editor.commands;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 
-import com.xross.tools.xeda.editor.model.ActorNode;
+import com.xross.tools.xeda.editor.model.BaseNode;
 
 public class MoveNodeCommand extends Command {
-    private ActorNode node;
+    private BaseNode node;
 
     private Rectangle oldConstraint;
 
@@ -16,7 +16,7 @@ public class MoveNodeCommand extends Command {
     	newConstraint = c;
     }
 
-    public void setNode(ActorNode node) {
+    public void setNode(BaseNode node) {
         this.node = node;
     }
 

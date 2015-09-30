@@ -7,7 +7,7 @@ import org.eclipse.gef.editparts.AbstractTreeEditPart;
 import org.eclipse.swt.graphics.Image;
 
 import com.xross.tools.xeda.editor.Activator;
-import com.xross.tools.xeda.editor.model.ActorNode;
+import com.xross.tools.xeda.editor.model.BaseNode;
 import com.xross.tools.xeda.editor.model.BaseNode;
 import com.xross.tools.xeda.editor.model.QueueNode;
 import com.xross.tools.xeda.editor.model.TopicNode;
@@ -40,7 +40,7 @@ public class BaseNodeTreePart extends AbstractTreeEditPart implements PropertyCh
 
 	public void deactivate() {
 		super.deactivate();
-		((ActorNode)getModel()).getListeners().removePropertyChangeListener(this);
+		((BaseNode)getModel()).getListeners().removePropertyChangeListener(this);
 	}
 
 	@Override

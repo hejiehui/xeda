@@ -8,11 +8,11 @@ public class TopicNode extends BaseNode {
 
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		return combine(super.getPropertyDescriptors(), new IPropertyDescriptor[] {
-				new TextPropertyDescriptor(PROP_MESSAGE_BUS_ADDRESS, PROP_MESSAGE_BUS_ADDRESS)});
+				new TextPropertyDescriptor(PROP_ADDRESS, PROP_ADDRESS)});
 	}
 
 	public Object getPropertyValue(Object propName) {
-		if (PROP_MESSAGE_BUS_ADDRESS.equals(propName))
+		if (PROP_ADDRESS.equals(propName))
 			return getValue(address);
 
 		return super.getPropertyValue(propName);
@@ -20,7 +20,7 @@ public class TopicNode extends BaseNode {
 
 	public void setPropertyValue(Object propName, Object value) {
 		super.setPropertyValue(propName, value);
-		if (PROP_MESSAGE_BUS_ADDRESS.equals(propName))
+		if (PROP_ADDRESS.equals(propName))
 			setAddress((String) value);
 	}
 
@@ -30,6 +30,6 @@ public class TopicNode extends BaseNode {
 
 	public void setAddress(String address) {
 		this.address = address;
-		firePropertyChange(PROP_REFERENCE);
+		firePropertyChange(PROP_ADDRESS);
 	}
 }

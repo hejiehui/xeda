@@ -9,15 +9,13 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 
-import com.xross.tools.xeda.editor.commands.AddStateNodeCommand;
+import com.xross.tools.xeda.editor.commands.AddNodeCommand;
 import com.xross.tools.xeda.editor.commands.CreateNodeCommand;
 import com.xross.tools.xeda.editor.commands.LayoutStateMachineCommand;
 import com.xross.tools.xeda.editor.commands.MoveNodeCommand;
-import com.xross.tools.xeda.editor.commands.ResizeNodeCommand;
+import com.xross.tools.xeda.editor.model.BaseNode;
 import com.xross.tools.xeda.editor.model.DepartmentNode;
-import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.requests.DepartmentLayoutRequest;
-import com.xross.tools.xeda.editor.requests.ActorNodeResizeRequest;
 
 public class DepartmentLayoutPolicy extends XYLayoutEditPolicy {
 
@@ -25,13 +23,13 @@ public class DepartmentLayoutPolicy extends XYLayoutEditPolicy {
     	if(!(getHost().getModel() instanceof DepartmentNode))
     		return null;
     	
-    	if(!(child.getModel() instanceof ActorNode))
+    	if(!(child.getModel() instanceof BaseNode))
     		return null;
 
     	Rectangle constr = (Rectangle)constraint;
-    	return new AddStateNodeCommand(
+    	return new AddNodeCommand(
         		(DepartmentNode)getHost().getModel(),
-        		(ActorNode)child.getModel(),
+        		(BaseNode)child.getModel(),
         		(DepartmentNode)child.getParent().getModel(),
         		constr.getTopLeft()
         		);
@@ -42,7 +40,7 @@ public class DepartmentLayoutPolicy extends XYLayoutEditPolicy {
             return null;
         
         MoveNodeCommand cmd = new MoveNodeCommand();
-        cmd.setNode((ActorNode) child.getModel());
+        cmd.setNode((BaseNode) child.getModel());
         cmd.setConstraint((Rectangle)constraint);
         return cmd;
     }
@@ -62,11 +60,11 @@ public class DepartmentLayoutPolicy extends XYLayoutEditPolicy {
     }
     
     protected Command getCreateCommand(CreateRequest request) {
-    	if(!(request.getNewObject() instanceof ActorNode))
+    	if(!(request.getNewObject() instanceof BaseNode))
 			return null;
         return new CreateNodeCommand(
         		(DepartmentNode)getHost().getModel(),
-        		(ActorNode)request.getNewObject(),
+        		(BaseNode)request.getNewObject(),
         		((Rectangle) getConstraintFor(request)).getLocation());
     }
 }

@@ -66,12 +66,12 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 		return value == null? "" : value;
 	}
 
-	public void removeNode(ActorNode node){
+	public void removeNode(BaseNode node){
 		nodes.remove(node);
 		firePropertyChange(STATE_NODE);
 	}
 
-	public void addNode(ActorNode node){
+	public void addNode(BaseNode node){
 		nodes.add(node);
 		firePropertyChange(STATE_NODE);
 	}

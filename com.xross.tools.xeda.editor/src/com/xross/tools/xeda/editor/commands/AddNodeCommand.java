@@ -4,16 +4,16 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 
 import com.xross.tools.xeda.editor.model.DepartmentNode;
-import com.xross.tools.xeda.editor.model.ActorNode;
+import com.xross.tools.xeda.editor.model.BaseNode;
 
-public class AddStateNodeCommand extends Command {
+public class AddNodeCommand extends Command {
 	private DepartmentNode parent;
-	private ActorNode node;
+	private BaseNode node;
 	private DepartmentNode oldParent;
 	private Point oldPosition;
 	private Point newPosition;
 	
-	public AddStateNodeCommand(DepartmentNode parent, ActorNode node, DepartmentNode oldParent, Point newPosition){
+	public AddNodeCommand(DepartmentNode parent, BaseNode node, DepartmentNode oldParent, Point newPosition){
 		this.parent = parent;
 		this.node = node;
 		this.oldParent = oldParent;

@@ -2,13 +2,13 @@ package com.xross.tools.xeda.editor.commands;
 
 import org.eclipse.gef.commands.Command;
 
-import com.xross.tools.xeda.editor.model.ActorNode;
+import com.xross.tools.xeda.editor.model.BaseNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
 
 public class CreateTransitionCommand extends Command {
 	private MessageRoute transition;
-	private ActorNode source;
-	private ActorNode target;
+	private BaseNode source;
+	private BaseNode target;
 
 	public void execute() {
 		transition = new MessageRoute(source, target);
@@ -19,11 +19,11 @@ public class CreateTransitionCommand extends Command {
 		target.addInput(transition);
 	}
 
-	public void setSource(ActorNode source) {
+	public void setSource(BaseNode source) {
 		this.source = source;
 	}
 
-	public void setTarget(ActorNode target) {
+	public void setTarget(BaseNode target) {
 		this.target = target;
 	}
 	

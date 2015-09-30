@@ -14,7 +14,7 @@ public interface XedaConstants {
 	String PROP_ERROR_HANDLER = "Error handler";
 	String PROP_REFERENCE = "Reference name";
 	String PROP_DESRIPTION = "Description";
-	String PROP_MESSAGE_BUS_ADDRESS = "Message bus address";
+	String PROP_ADDRESS = "Address";
 	String PROP_ROUTE_ID = "Route Id";
 	String PROP_TRANSITION_ACTION = "Transition action";
 	String PROP_INPUTS = "Inputs";
