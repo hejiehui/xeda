@@ -12,11 +12,11 @@ public class ChangeExitActionCommand extends Command{
     public ChangeExitActionCommand(ActorNode node, String newValue){
     	this.node = node;
     	this.newValue = newValue;
-    	oldValue = node.getExitAction();
+    	oldValue = node.getErrorHandler();
     }
     
     public void execute() {
-    	node.setExitAction(newValue);
+    	node.setErrorHandler(newValue);
     }
 
     public String getLabel() {
@@ -28,6 +28,6 @@ public class ChangeExitActionCommand extends Command{
     }
 
     public void undo() {
-    	node.setExitAction(oldValue);
+    	node.setErrorHandler(oldValue);
     }
 }

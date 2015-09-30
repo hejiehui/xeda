@@ -12,7 +12,7 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 	private String name;
 	private String description;
 
-	private List<ActorNode> nodes = new ArrayList<ActorNode>();
+	private List<BaseNode> nodes = new ArrayList<BaseNode>();
 	private List<MessageType> events = new ArrayList<MessageType>();
 	private XedaHelper helper = new XedaHelper(this);
 	
@@ -76,16 +76,6 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 		firePropertyChange(STATE_NODE);
 	}
 
-	public void removeEvent(MessageType event){
-		events.remove(event);
-		firePropertyChange(EVENT);
-	}
-
-	public void addEvent(MessageType event){
-		events.add(event);
-		firePropertyChange(EVENT);
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -104,11 +94,11 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 		firePropertyChange(PROP_DESRIPTION);
 	}
 
-	public List<ActorNode> getNodes() {
+	public List<BaseNode> getNodes() {
 		return nodes;
 	}
 
-	public void setNodes(List<ActorNode> nodes) {
+	public void setNodes(List<BaseNode> nodes) {
 		this.nodes = nodes;
 		firePropertyChange(STATE_NODE);
 	}
@@ -119,10 +109,5 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 	
 	public XedaHelper getHelper() {
 		return helper;
-	}
-
-	public void setEvents(List<MessageType> events) {
-		this.events = events;
-		firePropertyChange(EVENT);
 	}
 }

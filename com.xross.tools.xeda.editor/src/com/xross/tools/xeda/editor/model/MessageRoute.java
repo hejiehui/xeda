@@ -2,117 +2,90 @@ package com.xross.tools.xeda.editor.model;
 
 import java.beans.PropertyChangeSupport;
 
-import org.eclipse.ui.views.properties.ComboBoxPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 public class MessageRoute implements XedaConstants, IPropertySource {
 	private String routeId;
-	private MessageType event;
-	private String transitAction;
-	private ActorNode source;
-	private ActorNode target;
-	private RouteStyle style;
-	private XedaHelper helper;
-	
+	private BaseNode source;
+	private BaseNode target;
+
 	private PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-	
+
 	public PropertyChangeSupport getListeners() {
 		return listeners;
 	}
 
-	protected void firePropertyChange(String propertyName){
+	protected void firePropertyChange(String propertyName) {
 		listeners.firePropertyChange(propertyName, null, null);
 	}
 
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		IPropertyDescriptor[] descriptors;
-		descriptors = new IPropertyDescriptor[] {
-				new ComboBoxPropertyDescriptor(PROP_EVENT, PROP_EVENT, helper.getEventIds()),
-				new TextPropertyDescriptor(PROP_TRANSITION_ACTION, PROP_TRANSITION_ACTION),
-			};
+		descriptors = new IPropertyDescriptor[] { new TextPropertyDescriptor(
+				PROP_ROUTE_ID, PROP_ROUTE_ID), };
 		return descriptors;
 	}
-	
+
 	public Object getPropertyValue(Object propName) {
-		if (PROP_EVENT.equals(propName))
-			return helper.getEventIdIndex(event);
-		if (PROP_TRANSITION_ACTION.equals(propName))
-			return getValue(transitAction);
-		
+		if (PROP_ROUTE_ID.equals(propName))
+			return getValue(routeId);
+
 		return null;
 	}
 
-	public void setPropertyValue(Object propName, Object value){
-		if (PROP_EVENT.equals(propName))
-			setEvent(helper.getEvent((Integer)value));
-		if (PROP_TRANSITION_ACTION.equals(propName))
-			setTransitAction((String)value);
+	public void setPropertyValue(Object propName, Object value) {
+		if (PROP_ROUTE_ID.equals(propName))
+			setRouteId((String) value);
 	}
-	
-	public Object getEditableValue(){
+
+	public Object getEditableValue() {
 		return this;
 	}
 
-	public boolean isPropertySet(Object propName){
+	public boolean isPropertySet(Object propName) {
 		return true;
 	}
-	
-	public void resetPropertyValue(Object propName){
+
+	public void resetPropertyValue(Object propName) {
 	}
 
 	private String getValue(String value) {
-		return value == null? "" : value;
+		return value == null ? "" : value;
 	}
 
-	public MessageRoute(ActorNode source, ActorNode target, XedaHelper helper){
-		this.source =source;
+	public MessageRoute(BaseNode source, BaseNode target) {
+		this.source = source;
 		this.target = target;
-		this.helper = helper;
 		source.addOutput(this);
 		target.addInput(this);
 	}
 
-	public MessageType getEvent() {
-		return event;
+	public String getRouteId() {
+		return routeId;
 	}
-	public void setEvent(MessageType event) {
-		this.event = event;
-		firePropertyChange(PROP_EVENT);
+
+	public void setRouteId(String routeId) {
+		this.routeId = routeId;
+		firePropertyChange(PROP_ROUTE_ID);
 	}
-	public String getTransitAction() {
-		return transitAction;
-	}
-	public void setTransitAction(String transitAction) {
-		this.transitAction = transitAction;
-		firePropertyChange(PROP_TRANSITION_ACTION);
-	}
-	public ActorNode getSource() {
+
+	public BaseNode getSource() {
 		return source;
 	}
-	public void setSource(ActorNode source) {
+
+	public void setSource(BaseNode source) {
 		this.source = source;
 		firePropertyChange(PROP_SOURCE);
 	}
-	public ActorNode getTarget() {
+
+	public BaseNode getTarget() {
 		return target;
 	}
-	public void setTarget(ActorNode target) {
+
+	public void setTarget(BaseNode target) {
 		this.target = target;
 		firePropertyChange(PROP_TARGET);
-	}
-	
-	public String getDisplayLabel(){
-		StringBuffer sbf = new StringBuffer();
-		if(event != null && event.getId() != null)
-			sbf.append(event.getId());
-		
-		if(transitAction != null)
-			sbf.append(transitAction);
-		
-		if(sbf.length() == 0)
-			return NOT_SPECIFIED;
-		return sbf.toString();
 	}
 }

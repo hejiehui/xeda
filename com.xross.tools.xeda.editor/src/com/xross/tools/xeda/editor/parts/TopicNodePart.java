@@ -94,6 +94,7 @@ public class TopicNodePart extends AbstractGraphicalEditPart implements XedaCons
     	TopicNode node = (TopicNode) getModel();
     	TopicNodeFigure figure = (TopicNodeFigure)getFigure();
 
+    	figure.setName(node.getId());
 		Point loc = node.getLocation();
 		Dimension size = figure.getGoodSize();
         Rectangle rectangle = new Rectangle(loc, size);

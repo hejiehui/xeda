@@ -23,7 +23,7 @@ public class StateMachineChangeEntryAction extends WorkbenchPartAction implement
 	}
 	
 	public void run() {
-		String impl = finder.assignImpl(node.getEntryAction());
+		String impl = finder.assignImpl(node.getActorClassName());
 		execute(new ChangeEntryActionCommand(node, impl));
 	}
 }

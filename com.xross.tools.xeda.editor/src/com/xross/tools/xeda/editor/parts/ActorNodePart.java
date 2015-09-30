@@ -106,7 +106,7 @@ public class ActorNodePart extends AbstractGraphicalEditPart implements XedaCons
 	public void buildContextMenu(IMenuManager menu, IWorkbenchPart editor, ImplementationFinder finder) {
     	menu.add(new Separator());
     	ActorNode node = getStateNode();
-    	if(isEmpty(node.getEntryAction()))
+    	if(isEmpty(node.getActorClassName()))
     		menu.add(new StateMachineCreateEntryAction(editor, node, finder));
     	else{
     		menu.add(new StateMachineChangeEntryAction(editor, node, finder));
@@ -115,7 +115,7 @@ public class ActorNodePart extends AbstractGraphicalEditPart implements XedaCons
     	}
 
     	menu.add(new Separator());
-    	if(isEmpty(node.getExitAction()))
+    	if(isEmpty(node.getErrorHandler()))
     		menu.add(new StateMachineCreateExitAction(editor, node, finder));
     	else{
     		menu.add(new StateMachineChangeExitAction(editor, node, finder));

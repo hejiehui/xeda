@@ -29,7 +29,7 @@ public class StateMachineOpenExitAction extends WorkbenchPartAction implements S
 
 	@Override
 	public String getImplementation() {
-		return node.getExitAction();
+		return node.getErrorHandler();
 	}
 
 	@Override

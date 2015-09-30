@@ -42,9 +42,6 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.w3c.dom.Document;
 
-import com.xross.tools.xeda.editor.actions.StateMachineCreateEventAction;
-import com.xross.tools.xeda.editor.actions.StateMachineJunitCodeGenAction;
-import com.xross.tools.xeda.editor.actions.StateMachineUsageCodeGenAction;
 import com.xross.tools.xeda.editor.io.XedaDiagramFactory;
 import com.xross.tools.xeda.editor.model.XedaDiagram;
 import com.xross.tools.xeda.editor.parts.XedaPartFactory;

@@ -9,19 +9,14 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.Separator;
-import org.eclipse.ui.IWorkbenchPart;
 
-import com.xross.tools.xeda.editor.ContextMenuBuilder;
-import com.xross.tools.xeda.editor.actions.StateMachineCreateEventAction;
 import com.xross.tools.xeda.editor.figures.DepartmentNodeFigure;
+import com.xross.tools.xeda.editor.model.BaseNode;
 import com.xross.tools.xeda.editor.model.DepartmentNode;
-import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.policies.DepartmentLayoutPolicy;
 
-public class DepartmentPart extends AbstractGraphicalEditPart implements PropertyChangeListener, ContextMenuBuilder {
-    protected List<ActorNode> getModelChildren() {
+public class DepartmentPart extends AbstractGraphicalEditPart implements PropertyChangeListener {
+    protected List<BaseNode> getModelChildren() {
     	DepartmentNode diagram = (DepartmentNode)getModel();
         return diagram.getNodes();
     }
@@ -70,11 +65,4 @@ public class DepartmentPart extends AbstractGraphicalEditPart implements Propert
     	
        	figure.setName(node.getName(), node.getDescription());
     }
-
-	@Override
-	public void buildContextMenu(IMenuManager menu, IWorkbenchPart editor, ImplementationFinder finder) {
-    	menu.add(new Separator());
-    	DepartmentNode machine = (DepartmentNode)getModel();
-    	menu.add(new StateMachineCreateEventAction(editor, machine));
-	}
 }

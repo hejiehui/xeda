@@ -13,15 +13,15 @@ public class AssignClassCommand extends Command{
     public AssignClassCommand(ActorNode node, boolean isEntyAction, String value){
     	this.node = node;
     	this.isEntyAction = isEntyAction;
-    	oldValue = isEntyAction ? node.getEntryAction() : node.getExitAction();
+    	oldValue = isEntyAction ? node.getActorClassName() : node.getErrorHandler();
     	this.value = value;
     }
     
     public void execute() {
     	if(isEntyAction)
-    		node.setEntryAction(value);
+    		node.setActorClassName(value);
     	else
-    		node.setExitAction(value);
+    		node.setErrorHandler(value);
     }
 
     public String getLabel() {
@@ -34,8 +34,8 @@ public class AssignClassCommand extends Command{
 
     public void undo() {
     	if(isEntyAction)
-    		node.setEntryAction(oldValue);
+    		node.setActorClassName(oldValue);
     	else
-    		node.setExitAction(oldValue);
+    		node.setErrorHandler(oldValue);
     }
 }

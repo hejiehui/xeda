@@ -2,16 +2,16 @@ package com.xross.tools.xeda.editor.commands;
 
 import org.eclipse.gef.commands.Command;
 
-import com.xross.tools.xeda.editor.model.ActorNode;
+import com.xross.tools.xeda.editor.model.BaseNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
 
 public class ReconnectSourceCommand extends Command {
 
 	private MessageRoute transition;
-	private ActorNode oldSource;
-	private ActorNode newSource;
+	private BaseNode oldSource;
+	private BaseNode newSource;
 
-	public ReconnectSourceCommand(MessageRoute transition, ActorNode newSource){
+	public ReconnectSourceCommand(MessageRoute transition, BaseNode newSource){
 		this.transition = transition;
 		this.newSource = newSource;
 		oldSource = transition.getSource();

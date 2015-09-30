@@ -7,15 +7,16 @@ import org.eclipse.gef.editparts.AbstractTreeEditPart;
 import org.eclipse.swt.graphics.Image;
 
 import com.xross.tools.xeda.editor.Activator;
-import com.xross.tools.xeda.editor.model.TopicNode;
-import com.xross.tools.xeda.editor.model.QueueNode;
 import com.xross.tools.xeda.editor.model.ActorNode;
+import com.xross.tools.xeda.editor.model.BaseNode;
+import com.xross.tools.xeda.editor.model.QueueNode;
+import com.xross.tools.xeda.editor.model.TopicNode;
 
-public class ActorNodeTreePart extends AbstractTreeEditPart implements PropertyChangeListener {
-	private ActorNode node;
-	public ActorNodeTreePart(Object model) {
+public class BaseNodeTreePart extends AbstractTreeEditPart implements PropertyChangeListener {
+	private BaseNode node;
+	public BaseNodeTreePart(Object model) {
         super(model);
-        this.node = (ActorNode)model;
+        this.node = (BaseNode)model;
     }
 	
     protected String getText() {

@@ -13,13 +13,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.xross.tools.xeda.XedaDiagramConstants;
-import com.xross.tools.xeda.editor.model.TopicNode;
-import com.xross.tools.xeda.editor.model.MessageType;
-import com.xross.tools.xeda.editor.model.QueueNode;
-import com.xross.tools.xeda.editor.model.DepartmentNode;
-import com.xross.tools.xeda.editor.model.XedaDiagram;
 import com.xross.tools.xeda.editor.model.ActorNode;
+import com.xross.tools.xeda.editor.model.BaseNode;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
+import com.xross.tools.xeda.editor.model.QueueNode;
+import com.xross.tools.xeda.editor.model.TopicNode;
+import com.xross.tools.xeda.editor.model.XedaDiagram;
 
 public class XedaDiagramReader implements XedaDiagramConstants {
 	public XedaDiagram getFromDocument(Document doc){
@@ -28,7 +28,7 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 
 		model.setName(getChildNodeText(root, NAME));
 		model.setDescription(getChildNodeText(root, DESCRIPTION));
-		model.setMachines(readMachines(getChildNode(root, STATE_MACHINES)));
+		model.setMachines(readMachines(getChildNode(root, DEPARTMENTS)));
 		
 		return model;
 	}
@@ -42,94 +42,79 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 		return machineList;
 	}
 	
-	private DepartmentNode readMachine(Node machineNode) {
-		DepartmentNode machine = new DepartmentNode();
-		machine.setName(getChildNodeText(machineNode, NAME));
-		machine.setDescription(getChildNodeText(machineNode, DESCRIPTION));
+	private DepartmentNode readMachine(Node departmentNode) {
+		DepartmentNode department = new DepartmentNode();
+		department.setName(getChildNodeText(departmentNode, NAME));
+		department.setDescription(getChildNodeText(departmentNode, DESCRIPTION));
 
-		Node statesNode = getChildNode(machineNode, STATES);
-		Node eventsNode = getChildNode(machineNode, EVENTS);
-		Node transitionsNode = getChildNode(machineNode, TRANSITIONS);
+		Node baseNodes = getChildNode(departmentNode, nodes);
+		Node transitionsNode = getChildNode(departmentNode, MESSAGE_ROUTES);
 
-		machine.setEvents(readEvents(eventsNode));
-		machine.setNodes(readStates(statesNode));
-		linkState(machine, transitionsNode);
+		department.setNodes(readNodes(baseNodes));
+		linkNodes(department, transitionsNode);
 		
-		return machine;
+		return department;
 	}
 	
-	private List<ActorNode> readStates(Node statesNode) {
-		NodeList states = statesNode.getChildNodes();
-		List<ActorNode> nodes = new ArrayList<ActorNode>();
-		for(int i = 0; i < states.getLength(); i++) {
-			nodes.add(readState(states.item(i)));
+	private List<BaseNode> readNodes(Node baseNodes) {
+		NodeList nodesList = baseNodes.getChildNodes();
+		List<BaseNode> nodes = new ArrayList<BaseNode>();
+		for(int i = 0; i < nodesList.getLength(); i++) {
+			nodes.add(readNode(nodesList.item(i)));
 		}
 		return nodes;
 	}
 	
-	private ActorNode readState(Node stateNode) {
-		ActorNode node = createStateNode(stateNode);
-		node.setId(getAttribute(stateNode, ID));
-		node.setDescription(getChildNodeText(stateNode, DESCRIPTION));
+	private BaseNode readNode(Node baseNode) {
+		BaseNode node = createNode(baseNode);
+		node.setId(getAttribute(baseNode, ID));
+		node.setDescription(getChildNodeText(baseNode, DESCRIPTION));
 		
-		node.setReference(getChildNodeText(stateNode, REFERENCE));
-		node.setEntryAction(getChildNodeText(stateNode, ENTRY_ACTION));
-		node.setExitAction(getChildNodeText(stateNode, EXIT_ACTION));
-
 		node.setLocation(new Point(
-				getIntAttribute(stateNode, X_LOC), 
-				getIntAttribute(stateNode, Y_LOC)));
+				getIntAttribute(baseNode, X_LOC), 
+				getIntAttribute(baseNode, Y_LOC)));
 		
 		return node;
 	}
 	
-	private ActorNode createStateNode(Node stateNode) {
-		if(stateNode.getNodeName().equals(START_STATE))
-			return new QueueNode();
-		else
-			if(stateNode.getNodeName().equals(END_STATE))
-			return new TopicNode();
-		else
-			return new ActorNode();
+	private BaseNode createNode(Node baseNode) {
+		if(baseNode.getNodeName().equals(QUEUE)) {
+			QueueNode node = new QueueNode();
+			node.setAddress(getAttribute(baseNode, ADDRESS));
+			return node;
+		} else
+			if(baseNode.getNodeName().equals(TOPIC)) {
+				TopicNode node = new TopicNode();
+				node.setAddress(getAttribute(baseNode, ADDRESS));
+				return node;
+		} else {
+			ActorNode node = new ActorNode();
+			
+			node.setReference(getChildNodeText(baseNode, REFERENCE));
+			node.setActorClassName(getChildNodeText(baseNode, ACTOR_CLASS));
+			node.setErrorHandler(getChildNodeText(baseNode, ERROR_HANDLER));
+
+			return node;
+		}
 
 	}
-	private void linkState(DepartmentNode machine, Node transitionsNode) {
+	private void linkNodes(DepartmentNode machine, Node transitionsNode) {
 		NodeList transitions = transitionsNode.getChildNodes();
-		Map<String, ActorNode> states = new HashMap<String, ActorNode>();
-		Map<String, MessageType> events = new HashMap<String, MessageType>();
+		Map<String, BaseNode> nodes = new HashMap<String, BaseNode>();
 		
-		for(ActorNode node: machine.getNodes()) {
-			states.put(node.getId(), node);
+		for(BaseNode node: machine.getNodes()) {
+			nodes.put(node.getId(), node);
 		}
 		
-		for(MessageType event: machine.getEvents()) {
-			events.put(event.getId(), event);
-		}
-
 		for(int i = 0; i < transitions.getLength(); i++) {
 			Node node = transitions.item(i);
-			ActorNode source = states.get(getAttribute(node, SOURCE_ID));
-			ActorNode target = states.get(getAttribute(node, TARGET_ID));
-			MessageType event = events.get(getAttribute(node, EVENT_ID));
-			MessageRoute transition = new MessageRoute(source, target, machine.getHelper());
-			transition.setEvent(event);
-			transition.setTransitAction(getAttribute(node, TRANSIT_ACTION));
+			BaseNode source = nodes.get(getAttribute(node, SOURCE_ID));
+			BaseNode target = nodes.get(getAttribute(node, TARGET_ID));
+			MessageRoute route = new MessageRoute(source, target);
+			route.setRouteId(getAttribute(node, ROUTE_ID));
 		}
 	}
 
-	private List<MessageType> readEvents(Node eventsNode) {
-		NodeList events = eventsNode.getChildNodes();
-		List<MessageType> eventList = new ArrayList<MessageType>();
-		for(int i = 0; i < events.getLength(); i++) {
-			Node eventNode = events.item(i);
-			MessageType event = new MessageType();
-			event.setId(getAttribute(eventNode, ID));
-			event.setDescription(eventNode.getTextContent());
-			eventList.add(event);
-		}
-		return eventList;
-	}
-	
 	private String getChildNodeText(Node node, String childName) {
 		Node child = getChildNode(node, childName);
 		if(child == null)
@@ -158,7 +143,7 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 
 		return null;
 	}
-	
+
 	private int getIntAttribute(Node node, String attributeName) {
 		return Integer.parseInt(getAttribute(node, attributeName));
 	}

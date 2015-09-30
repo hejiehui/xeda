@@ -8,25 +8,25 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.xross.tools.xeda.XedaDiagramConstants;
-import com.xross.tools.xeda.editor.model.TopicNode;
-import com.xross.tools.xeda.editor.model.MessageType;
-import com.xross.tools.xeda.editor.model.QueueNode;
-import com.xross.tools.xeda.editor.model.DepartmentNode;
-import com.xross.tools.xeda.editor.model.XedaDiagram;
 import com.xross.tools.xeda.editor.model.ActorNode;
+import com.xross.tools.xeda.editor.model.BaseNode;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
+import com.xross.tools.xeda.editor.model.QueueNode;
+import com.xross.tools.xeda.editor.model.TopicNode;
+import com.xross.tools.xeda.editor.model.XedaDiagram;
 
 public class XedaDiagramWriter implements XedaDiagramConstants {
 	public Document writeToDocument(XedaDiagram model){
 		Document doc = null;
 		try {
 			doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-			Element root = (Element)doc.createElement(STATE_MACHINE_DIAGRAM);
+			Element root = (Element)doc.createElement(XEDA_DIAGRAM);
 			doc.appendChild(root);
 
 			createNameDesc(doc, root, model.getName(), model.getDescription());			
 			
-			Element machinesNode = createNode(doc, root, STATE_MACHINES);
+			Element machinesNode = createNode(doc, root, DEPARTMENTS);
 			writeMachines(doc, machinesNode, model);
 
 			return doc;
@@ -38,7 +38,7 @@ public class XedaDiagramWriter implements XedaDiagramConstants {
 	
 	private void writeMachines(Document doc, Element machinesNode, XedaDiagram model) {
 		for(DepartmentNode machine: model.getMachines()) {
-			Element machineNode = createNode(doc, machinesNode, STATE_MACHINE);
+			Element machineNode = createNode(doc, machinesNode, DEPARTMENT);
 			writeMachine(doc, machineNode, machine);
 		}
 	}
@@ -46,62 +46,61 @@ public class XedaDiagramWriter implements XedaDiagramConstants {
 	private void writeMachine(Document doc, Element machineNode, DepartmentNode machine) {
 		createNameDesc(doc, machineNode, machine.getName(), machine.getDescription());
 		
-		Element statesNode = createNode(doc, machineNode, STATES);
-		Element eventsNode = createNode(doc, machineNode, EVENTS);
-		Element transitionsNode = createNode(doc, machineNode, TRANSITIONS);
+		Element statesNode = createNode(doc, machineNode, nodes);
+		Element transitionsNode = createNode(doc, machineNode, MESSAGE_ROUTES);
 		machineNode.appendChild(statesNode);
-		machineNode.appendChild(eventsNode);
 		machineNode.appendChild(transitionsNode);
 
 		writeStatesAndTransitions(doc, statesNode, machine.getNodes(), transitionsNode);
-		writeEvents(doc, eventsNode, machine.getEvents());
 	}
 	
-	private void writeStatesAndTransitions(Document doc, Element statesNode, List<ActorNode> nodes, Element transitionsNode) {
-		for(ActorNode node: nodes) {
-			Element stateNode = (Element)doc.createElement(getNodeType(node));
-			statesNode.appendChild(stateNode);
-			writeState(doc, stateNode, node);
+	private void writeStatesAndTransitions(Document doc, Element statesNode, List<BaseNode> nodes, Element transitionsNode) {
+		for(BaseNode node: nodes) {
+			Element baseNode = (Element)doc.createElement(getNodeType(node));
+			statesNode.appendChild(baseNode);
+			writeState(doc, baseNode, node);
 			writeTransitions(doc, transitionsNode, node.getOutputs());
 		}
 	}
 
-	private void writeEvents(Document doc, Element eventsNode, List<MessageType> events) {
-		for(MessageType event: events) {
-			createTextNode(doc, eventsNode, EVENT, event.getDescription()).
-				setAttribute(ID,  event.getId());
-		}
-	}
-	
-	private String getNodeType(ActorNode node) {
+	private String getNodeType(BaseNode node) {
 		if(node instanceof QueueNode)
-			return START_STATE;
+			return QUEUE;
 		else
 		if(node instanceof TopicNode)
-			return END_STATE;
+			return TOPIC;
 		else
-			return STATE;
+			return ACTOR;
 	}
 	
-	private void writeState(Document doc, Element stateNode, ActorNode node) {
-		createIdDesc(doc, stateNode, node.getId(), node.getDescription());
+	private void writeState(Document doc, Element baseNode, BaseNode node) {
+		createIdDesc(doc, baseNode, node.getId(), node.getDescription());
 		
-		createTextNode(doc, stateNode, REFERENCE, node.getReference());
-		createTextNode(doc, stateNode, ENTRY_ACTION, node.getEntryAction());
-		createTextNode(doc, stateNode, EXIT_ACTION, node.getExitAction());
+		if(node instanceof QueueNode) {
+			QueueNode queue = (QueueNode)node;
+			createTextNode(doc, baseNode, ADDRESS, queue.getAddress());
+		} else
+		if(node instanceof TopicNode) {
+			TopicNode topic = (TopicNode)node;
+			createTextNode(doc, baseNode, ADDRESS, topic.getAddress());
+		} else {
+			ActorNode actor = (ActorNode)node;
+			createTextNode(doc, baseNode, REFERENCE, actor.getReference());
+			createTextNode(doc, baseNode, ACTOR_CLASS, actor.getActorClassName());
+			createTextNode(doc, baseNode, ERROR_HANDLER, actor.getErrorHandler());
+		}
 
-		stateNode.setAttribute(X_LOC, String.valueOf(node.getLocation().x));
-		stateNode.setAttribute(Y_LOC, String.valueOf(node.getLocation().y));
+		baseNode.setAttribute(X_LOC, String.valueOf(node.getLocation().x));
+		baseNode.setAttribute(Y_LOC, String.valueOf(node.getLocation().y));
 	}
 	
 	private void writeTransitions(Document doc, Element transitionsNode, List<MessageRoute> outputs) {
 		for(MessageRoute transition: outputs) {
-			Element node = createNode(doc, transitionsNode, TRANSITION);
-			if(transition.getEvent() != null)
-				node.setAttribute(EVENT_ID, transition.getEvent().getId());
+			Element node = createNode(doc, transitionsNode, ROUTE);
+			if(transition.getRouteId() != null)
+				node.setAttribute(ROUTE_ID, transition.getRouteId());
 			node.setAttribute(SOURCE_ID, transition.getSource().getId());
 			node.setAttribute(TARGET_ID, transition.getTarget().getId());
-			node.setAttribute(TRANSIT_ACTION, transition.getTransitAction());
 		}
 	}
 	

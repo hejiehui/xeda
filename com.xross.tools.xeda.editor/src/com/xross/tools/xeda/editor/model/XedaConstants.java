@@ -10,11 +10,12 @@ public interface XedaConstants {
 	String NOT_SPECIFIED = "Not specified";
 	
 	String PROP_ID = "Id";
-	String PROP_ENTRY_ACTION = "Entry action";
-	String PROP_EXIT_ACTION = "Exit action";
-	String PROP_REFERENCE = "Reference state machine";
+	String PROP_ACTOR_CLASS_NAME = "Class name";
+	String PROP_ERROR_HANDLER = "Error handler";
+	String PROP_REFERENCE = "Reference name";
 	String PROP_DESRIPTION = "Description";
-	String PROP_EVENT = "Event";
+	String PROP_MESSAGE_BUS_ADDRESS = "Message bus address";
+	String PROP_ROUTE_ID = "Route Id";
 	String PROP_TRANSITION_ACTION = "Transition action";
 	String PROP_INPUTS = "Inputs";
 	String PROP_OUTPUTS = "Outputs";

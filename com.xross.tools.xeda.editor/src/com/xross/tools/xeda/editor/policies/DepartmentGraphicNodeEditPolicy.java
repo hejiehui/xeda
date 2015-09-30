@@ -8,11 +8,10 @@ import org.eclipse.gef.requests.ReconnectRequest;
 import com.xross.tools.xeda.editor.commands.CreateTransitionCommand;
 import com.xross.tools.xeda.editor.commands.ReconnectSourceCommand;
 import com.xross.tools.xeda.editor.commands.ReconnectTargetCommand;
-import com.xross.tools.xeda.editor.model.TopicNode;
-import com.xross.tools.xeda.editor.model.QueueNode;
-import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
+import com.xross.tools.xeda.editor.model.QueueNode;
+import com.xross.tools.xeda.editor.model.TopicNode;
 
 public class DepartmentGraphicNodeEditPolicy extends GraphicalNodeEditPolicy {
 	protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
@@ -21,7 +20,6 @@ public class DepartmentGraphicNodeEditPolicy extends GraphicalNodeEditPolicy {
 		
 		CreateTransitionCommand cmd = (CreateTransitionCommand)request.getStartCommand();
 		cmd.setTarget((ActorNode)getHost().getModel());
-		cmd.setStateMachine((DepartmentNode)getHost().getParent().getModel());
 		return cmd;
 	}
 

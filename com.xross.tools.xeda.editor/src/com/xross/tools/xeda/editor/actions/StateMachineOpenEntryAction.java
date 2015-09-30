@@ -29,7 +29,7 @@ public class StateMachineOpenEntryAction extends WorkbenchPartAction implements 
 
 	@Override
 	public String getImplementation() {
-		return node.getEntryAction();
+		return node.getActorClassName();
 	}
 
 	@Override

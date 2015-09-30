@@ -12,11 +12,11 @@ public class ChangeEntryActionCommand extends Command{
     public ChangeEntryActionCommand(ActorNode node, String newValue){
     	this.node = node;
     	this.newValue = newValue;
-    	oldValue = node.getEntryAction();
+    	oldValue = node.getActorClassName();
     }
     
     public void execute() {
-    	node.setEntryAction(newValue);
+    	node.setActorClassName(newValue);
     }
 
     public String getLabel() {
@@ -28,6 +28,6 @@ public class ChangeEntryActionCommand extends Command{
     }
 
     public void undo() {
-    	node.setEntryAction(oldValue);
+    	node.setActorClassName(oldValue);
     }
 }
