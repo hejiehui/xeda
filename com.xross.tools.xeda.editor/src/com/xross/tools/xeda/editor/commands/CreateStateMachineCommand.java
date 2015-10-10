@@ -1,5 +1,6 @@
 package com.xross.tools.xeda.editor.commands;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 
 import com.xross.tools.xeda.editor.model.DepartmentNode;
@@ -7,17 +8,18 @@ import com.xross.tools.xeda.editor.model.XedaDiagram;
 
 public class CreateStateMachineCommand extends Command {
 	private XedaDiagram diagram;
-	private DepartmentNode machine;
-	private int index;
+	private DepartmentNode department;
+	private Point location;
 	
-	public CreateStateMachineCommand(XedaDiagram diagram, DepartmentNode machine, int index){
+	public CreateStateMachineCommand(XedaDiagram diagram, DepartmentNode department, Point location){
 		this.diagram = diagram;
-		this.machine = machine;
-		this.index = index;
+		this.department = department;
+		this.location = location;
 	}
 	
 	public void execute() {
-		diagram.addMachine(index, machine);
+		department.setLocation(location);
+		diagram.addDepartment(department);
 	}
 	
     public String getLabel() {
@@ -29,6 +31,6 @@ public class CreateStateMachineCommand extends Command {
     }
 
     public void undo() {
-    	diagram.removeMachine(machine);
+    	diagram.removeDepartment(department);
 	}
 }

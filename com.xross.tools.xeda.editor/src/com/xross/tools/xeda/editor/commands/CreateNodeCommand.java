@@ -7,22 +7,22 @@ import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.BaseNode;
 
 public class CreateNodeCommand extends Command{
-    private DepartmentNode stateMachine;
+    private DepartmentNode department;
     private BaseNode node;
     private Point location;
     
     public CreateNodeCommand(
-    		DepartmentNode stateMachine, 
+    		DepartmentNode department, 
     		BaseNode node, 
     		Point location){
-    	this.stateMachine = stateMachine;
+    	this.department = department;
     	this.node = node;
     	this.location = location;
     }
     
     public void execute() {
         node.setLocation(location);
-        stateMachine.addNode(node);
+        department.addNode(node);
     }
 
     public String getLabel() {
@@ -34,6 +34,6 @@ public class CreateNodeCommand extends Command{
     }
 
     public void undo() {
-    	stateMachine.removeNode(node);
+    	department.removeNode(node);
     }
 }

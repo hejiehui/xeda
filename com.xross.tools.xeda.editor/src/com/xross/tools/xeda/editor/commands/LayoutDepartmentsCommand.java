@@ -4,13 +4,13 @@ import org.eclipse.gef.commands.Command;
 
 import com.xross.tools.xeda.editor.model.XedaDiagram;
 
-public class LayoutStateMachineCommand extends Command {
+public class LayoutDepartmentsCommand extends Command {
 	private XedaDiagram diagram;
 	private boolean oldOrintation;
 	private boolean orintation;
 	private float oldAlignment;
 	private float alignment;
-	public LayoutStateMachineCommand(XedaDiagram diagram, boolean isHorizantal, float alignment){
+	public LayoutDepartmentsCommand(XedaDiagram diagram, boolean isHorizantal, float alignment){
 		this.diagram = diagram;
 		oldOrintation = diagram.isHorizantal();
 		oldAlignment = diagram.getAlignment();

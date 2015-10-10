@@ -17,7 +17,7 @@ public class XedaDiagramFactory implements XedaConstants{
 		smd.setName("StateMachineDiagram");	
 		
 //		smd.getMachines().add(createStateMachine("state machine 1", 0));
-		smd.getMachines().add(createStateMachine("state machine 2", 1));
+		smd.getDepartments().add(createStateMachine("state machine 2", 1));
 //		smd.getMachines().add(createStateMachine("state machine 3", 2));
 		
 		return smd;

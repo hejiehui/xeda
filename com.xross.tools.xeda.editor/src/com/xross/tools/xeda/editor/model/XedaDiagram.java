@@ -12,7 +12,7 @@ public class XedaDiagram implements XedaConstants, IPropertySource {
 	private String name;
 	private String description;
 
-	private List<DepartmentNode> machines = new ArrayList<DepartmentNode>();
+	private List<DepartmentNode> departments = new ArrayList<DepartmentNode>();
 	
 	private boolean isHorizantal;
 	private int verticalSpace = 50;
@@ -67,38 +67,24 @@ public class XedaDiagram implements XedaConstants, IPropertySource {
 		return value == null? "" : value;
 	}
 
-	public List<DepartmentNode> getMachines() {
-		return machines;
+	public List<DepartmentNode> getDepartments() {
+		return departments;
 	}
 
-	public void setMachines(List<DepartmentNode> machines) {
-		this.machines = machines;
+	public void setDepartments(List<DepartmentNode> departments) {
+		this.departments = departments;
 	}
 
-	public void addMachine(int index, DepartmentNode machine) {
-		machines.add(index, machine);
+	public void addDepartment(DepartmentNode machine) {
+		departments.add(machine);
 		firePropertyChange(PROP_LAYOUT);
 	}
 
-	public void removeMachine(DepartmentNode machine) {
-		machines.remove(machine);
+	public void removeDepartment(DepartmentNode machine) {
+		departments.remove(machine);
 		firePropertyChange(PROP_LAYOUT);
 	}
 	
-	public int indexOf(DepartmentNode machine) {
-		return machines.indexOf(machine);
-	}
-	
-	public void move(int newIndex, DepartmentNode machine) {
-		int index = machines.indexOf(machine);
-		if(index < newIndex)
-			newIndex-=1;
-		
-		removeMachine(machine);
-		addMachine(newIndex, machine);
-		listeners.firePropertyChange(PROP_LAYOUT, null, null);
-	}
-
 	public PropertyChangeSupport getListeners() {
 		return listeners;
 	}
@@ -167,6 +153,5 @@ public class XedaDiagram implements XedaConstants, IPropertySource {
 
 	public void setNodeHeight(int nodeHeight) {
 		this.nodeHeight = nodeHeight;
-	}
-	
+	}	
 }

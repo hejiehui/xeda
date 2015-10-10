@@ -11,11 +11,11 @@ import org.eclipse.gef.requests.CreateRequest;
 
 import com.xross.tools.xeda.editor.commands.AddNodeCommand;
 import com.xross.tools.xeda.editor.commands.CreateNodeCommand;
-import com.xross.tools.xeda.editor.commands.LayoutStateMachineCommand;
+import com.xross.tools.xeda.editor.commands.LayoutActorsCommand;
 import com.xross.tools.xeda.editor.commands.MoveNodeCommand;
 import com.xross.tools.xeda.editor.model.BaseNode;
 import com.xross.tools.xeda.editor.model.DepartmentNode;
-import com.xross.tools.xeda.editor.requests.DepartmentLayoutRequest;
+import com.xross.tools.xeda.editor.requests.ActorLayoutRequest;
 
 public class DepartmentLayoutPolicy extends XYLayoutEditPolicy {
 
@@ -41,14 +41,14 @@ public class DepartmentLayoutPolicy extends XYLayoutEditPolicy {
         
         MoveNodeCommand cmd = new MoveNodeCommand();
         cmd.setNode((BaseNode) child.getModel());
-        cmd.setConstraint((Rectangle)constraint);
+        cmd.setLocation(((Rectangle)constraint).getLocation());
         return cmd;
     }
 
     public Command getCommand(Request request) {
     	if(request.getType() == RequestConstants.REQ_ALIGN){
-    		DepartmentLayoutRequest layoutReq = (DepartmentLayoutRequest)request;
-    		return new LayoutStateMachineCommand(layoutReq.getDiagram(), layoutReq.isHorizantal(), layoutReq.getAlignment());
+    		ActorLayoutRequest layoutReq = (ActorLayoutRequest)request;
+    		return new LayoutActorsCommand(layoutReq.getDepartmentNode(), layoutReq.isHorizantal(), layoutReq.getAlignment());
     	}
     	
 //    	if(request.getType() == RequestConstants.REQ_RESIZE){

@@ -5,24 +5,24 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.FreeformLayer;
+import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
-import com.xross.tools.xeda.editor.figures.XedaDiagramFigure;
 import com.xross.tools.xeda.editor.model.XedaDiagram;
 import com.xross.tools.xeda.editor.policies.XedaDiagramLayoutPolicy;
 
 public class XedaDiagramPart extends AbstractGraphicalEditPart implements PropertyChangeListener{
 	private Figure panel;
 	protected List getModelChildren() {
-		return ((XedaDiagram)getModel()).getMachines();
+		return ((XedaDiagram)getModel()).getDepartments();
 	}
 	
 	protected IFigure createFigure() {
-		return new XedaDiagramFigure();
-//        Figure figure = new FreeformLayer();
-//        figure.setLayoutManager(new FreeformLayout());
+        Figure figure = new FreeformLayer();
+        figure.setLayoutManager(new FreeformLayout());
 //        
 //        panel = new Figure();
 //    	ToolbarLayout layout= new ToolbarLayout();
@@ -39,7 +39,7 @@ public class XedaDiagramPart extends AbstractGraphicalEditPart implements Proper
 //        Rectangle rectangle = new Rectangle(loc, size);
 //        this.setLayoutConstraint(this, panel, rectangle);
 //        
-//        return figure;
+        return panel = figure;
 	}
 
 	public IFigure getContentPane(){

@@ -27,7 +27,7 @@ public class XedaDiagramWriter implements XedaDiagramConstants {
 			createNameDesc(doc, root, model.getName(), model.getDescription());			
 			
 			Element machinesNode = createNode(doc, root, DEPARTMENTS);
-			writeMachines(doc, machinesNode, model);
+			writeDepartments(doc, machinesNode, model);
 
 			return doc;
 		} catch (Exception e) {
@@ -36,29 +36,31 @@ public class XedaDiagramWriter implements XedaDiagramConstants {
 		}
 	}
 	
-	private void writeMachines(Document doc, Element machinesNode, XedaDiagram model) {
-		for(DepartmentNode machine: model.getMachines()) {
-			Element machineNode = createNode(doc, machinesNode, DEPARTMENT);
-			writeMachine(doc, machineNode, machine);
+	private void writeDepartments(Document doc, Element departmentsNode, XedaDiagram model) {
+		for(DepartmentNode machine: model.getDepartments()) {
+			Element departmentNode = createNode(doc, departmentsNode, DEPARTMENT);
+			writeDepartment(doc, departmentNode, machine);
 		}
 	}
 	
-	private void writeMachine(Document doc, Element machineNode, DepartmentNode machine) {
-		createNameDesc(doc, machineNode, machine.getName(), machine.getDescription());
+	private void writeDepartment(Document doc, Element departmentNode, DepartmentNode department) {
+		createNameDesc(doc, departmentNode, department.getName(), department.getDescription());
+		departmentNode.setAttribute(X_LOC, String.valueOf(department.getLocation().x));
+		departmentNode.setAttribute(Y_LOC, String.valueOf(department.getLocation().y));
 		
-		Element statesNode = createNode(doc, machineNode, nodes);
-		Element transitionsNode = createNode(doc, machineNode, MESSAGE_ROUTES);
-		machineNode.appendChild(statesNode);
-		machineNode.appendChild(transitionsNode);
+		Element actorsNode = createNode(doc, departmentNode, nodes);
+		Element transitionsNode = createNode(doc, departmentNode, MESSAGE_ROUTES);
+		departmentNode.appendChild(actorsNode);
+		departmentNode.appendChild(transitionsNode);
 
-		writeStatesAndTransitions(doc, statesNode, machine.getNodes(), transitionsNode);
+		writeNodesAndTransitions(doc, actorsNode, department.getNodes(), transitionsNode);
 	}
 	
-	private void writeStatesAndTransitions(Document doc, Element statesNode, List<BaseNode> nodes, Element transitionsNode) {
+	private void writeNodesAndTransitions(Document doc, Element statesNode, List<BaseNode> nodes, Element transitionsNode) {
 		for(BaseNode node: nodes) {
 			Element baseNode = (Element)doc.createElement(getNodeType(node));
 			statesNode.appendChild(baseNode);
-			writeState(doc, baseNode, node);
+			writeNode(doc, baseNode, node);
 			writeTransitions(doc, transitionsNode, node.getOutputs());
 		}
 	}
@@ -73,7 +75,7 @@ public class XedaDiagramWriter implements XedaDiagramConstants {
 			return ACTOR;
 	}
 	
-	private void writeState(Document doc, Element baseNode, BaseNode node) {
+	private void writeNode(Document doc, Element baseNode, BaseNode node) {
 		createIdDesc(doc, baseNode, node.getId(), node.getDescription());
 		
 		if(node instanceof QueueNode) {

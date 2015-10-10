@@ -28,7 +28,7 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 
 		model.setName(getChildNodeText(root, NAME));
 		model.setDescription(getChildNodeText(root, DESCRIPTION));
-		model.setMachines(readMachines(getChildNode(root, DEPARTMENTS)));
+		model.setDepartments(readMachines(getChildNode(root, DEPARTMENTS)));
 		
 		return model;
 	}
@@ -52,7 +52,10 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 
 		department.setNodes(readNodes(baseNodes));
 		linkNodes(department, transitionsNode);
-		
+		department.setLocation(new Point(
+				getIntAttribute(departmentNode, X_LOC), 
+				getIntAttribute(departmentNode, Y_LOC)));
+
 		return department;
 	}
 	

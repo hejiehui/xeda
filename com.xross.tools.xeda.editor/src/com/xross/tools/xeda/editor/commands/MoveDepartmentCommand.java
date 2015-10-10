@@ -3,10 +3,10 @@ package com.xross.tools.xeda.editor.commands;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 
-import com.xross.tools.xeda.editor.model.BaseNode;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 
-public class MoveNodeCommand extends Command {
-    private BaseNode node;
+public class MoveDepartmentCommand extends Command {
+    private DepartmentNode node;
 
     private Point oldLocation;
 
@@ -16,7 +16,7 @@ public class MoveNodeCommand extends Command {
     	newLocation = location;
     }
 
-    public void setNode(BaseNode node) {
+    public void setNode(DepartmentNode node) {
         this.node = node;
     }
 

@@ -15,7 +15,7 @@ public class XedaDiagramTreePart extends AbstractTreeEditPart {
      }
 
     protected List<DepartmentNode> getModelChildren() {
-    	return ((XedaDiagram)getModel()).getMachines();
+    	return ((XedaDiagram)getModel()).getDepartments();
     }
     
     protected String getText() {

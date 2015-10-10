@@ -4,6 +4,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
@@ -15,6 +16,8 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 	private List<BaseNode> nodes = new ArrayList<BaseNode>();
 	private List<MessageType> events = new ArrayList<MessageType>();
 	private XedaHelper helper = new XedaHelper(this);
+	
+	private Point location;
 	
 	private PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
@@ -76,6 +79,15 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 		firePropertyChange(STATE_NODE);
 	}
 
+	public void setLocation(Point location) {
+		this.location = location;
+		listeners.firePropertyChange(PROP_LOCATION, null, location);
+	}
+
+	public Point getLocation() {
+		return location;
+	}
+	
 	public String getName() {
 		return name;
 	}
