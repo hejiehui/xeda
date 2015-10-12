@@ -8,9 +8,7 @@ import com.xross.tools.xeda.editor.model.DepartmentNode;
 
 public class MoveDepartmentCommand extends Command {
     private DepartmentNode node;
-
     private Rectangle oldConstrain;
-
     private Rectangle newConstrain;
 
     public void setConstrain(Rectangle constrain) {

@@ -4,22 +4,23 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.Separator;
+import org.eclipse.ui.IWorkbenchPart;
 
+import com.xross.tools.xeda.editor.ContextMenuBuilder;
+import com.xross.tools.xeda.editor.actions.DepartmentLayoutAction;
 import com.xross.tools.xeda.editor.figures.DepartmentNodeFigure;
 import com.xross.tools.xeda.editor.model.BaseNode;
 import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.policies.DepartmentLayoutPolicy;
 
-public class DepartmentPart extends AbstractGraphicalEditPart implements PropertyChangeListener {
+public class DepartmentPart extends AbstractGraphicalEditPart implements PropertyChangeListener, ContextMenuBuilder {
     protected List<BaseNode> getModelChildren() {
     	DepartmentNode diagram = (DepartmentNode)getModel();
         return diagram.getNodes();
@@ -69,4 +70,10 @@ public class DepartmentPart extends AbstractGraphicalEditPart implements Propert
        	figure.setName(department.getName(), department.getDescription());
         ((GraphicalEditPart) getParent()).setLayoutConstraint(this, figure, department.getConstrain());
     }
+
+	@Override
+	public void buildContextMenu(IMenuManager menu, IWorkbenchPart editor, ImplementationFinder finder) {
+    	menu.add(new Separator());
+    	menu.add(new DepartmentLayoutAction(editor, (DepartmentNode)getModel(), getFigure().getPreferredSize()));
+	}
 }

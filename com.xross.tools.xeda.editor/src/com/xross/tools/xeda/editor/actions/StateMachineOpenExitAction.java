@@ -8,7 +8,7 @@ import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.parts.ImplementationFinder;
 import com.xross.tools.xeda.editor.parts.ImplementationSource;
 
-public class StateMachineOpenExitAction extends WorkbenchPartAction implements StateMachineActionConstants, StateMachineMessages, ImplementationSource{
+public class StateMachineOpenExitAction extends WorkbenchPartAction implements XedaActionConstants, XedaMessages, ImplementationSource{
 	private ActorNode node;
 	private ImplementationFinder finder;
 	public StateMachineOpenExitAction(IWorkbenchPart part, ActorNode node, ImplementationFinder finder){

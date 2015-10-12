@@ -2,7 +2,7 @@ package com.xross.tools.xeda.editor.actions;
 
 import com.xross.tools.xeda.editor.Activator;
 
-public interface StateMachineActionConstants {
+public interface XedaActionConstants {
 	String ID_PREFIX = Activator.PLUGIN_ID;
 	String GEN_JUNIT_TEST_CODE = "generate_junit_test_code";
 
@@ -49,4 +49,6 @@ public interface StateMachineActionConstants {
 	
 	String SHOW_LABEL_INSIDE = "show_lable_inside";
 	String SHOW_LABEL_OUTSIDE = "show_lable_outside";
+	
+	String AUTO_LAYOUT_DEPARTMENT = "AUTO_LAYOUT_DEPARTMENT";
 }

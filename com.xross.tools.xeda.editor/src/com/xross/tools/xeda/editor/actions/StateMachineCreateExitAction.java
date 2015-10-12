@@ -7,7 +7,7 @@ import com.xross.tools.xeda.editor.commands.ChangeExitActionCommand;
 import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.parts.ImplementationFinder;
 
-public class StateMachineCreateExitAction extends WorkbenchPartAction implements StateMachineActionConstants, StateMachineMessages{
+public class StateMachineCreateExitAction extends WorkbenchPartAction implements XedaActionConstants, XedaMessages{
 	private ActorNode node;
 	private ImplementationFinder finder;
 	public StateMachineCreateExitAction(IWorkbenchPart part, ActorNode node, ImplementationFinder finder){

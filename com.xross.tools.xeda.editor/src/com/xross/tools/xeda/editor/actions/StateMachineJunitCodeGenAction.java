@@ -15,7 +15,7 @@ import com.xross.tools.xeda.editor.XedaDiagramGraphicalEditor;
 import com.xross.tools.xeda.editor.codegen.StateMachineJunitTestCodeGen;
 import com.xross.tools.xeda.editor.model.XedaDiagram;
 
-public class StateMachineJunitCodeGenAction extends WorkbenchPartAction implements StateMachineActionConstants, StateMachineMessages{
+public class StateMachineJunitCodeGenAction extends WorkbenchPartAction implements XedaActionConstants, XedaMessages{
 	private StateMachineJunitTestCodeGen junitCodeGen = new StateMachineJunitTestCodeGen();
 	public StateMachineJunitCodeGenAction(IWorkbenchPart part){
 		super(part);

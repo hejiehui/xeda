@@ -6,7 +6,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import com.xross.tools.xeda.editor.commands.ChangeExitActionCommand;
 import com.xross.tools.xeda.editor.model.ActorNode;
 
-public class StateMachineRemoveExitAction extends WorkbenchPartAction implements StateMachineActionConstants, StateMachineMessages{
+public class StateMachineRemoveExitAction extends WorkbenchPartAction implements XedaActionConstants, XedaMessages{
 	private ActorNode node;
 	public StateMachineRemoveExitAction(IWorkbenchPart part, ActorNode node){
 		super(part);

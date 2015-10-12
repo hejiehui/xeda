@@ -59,9 +59,8 @@ public class DepartmentNodeFigure extends Figure implements XedaConstants{
     
     public Dimension getPreferredSize(int wHint, int hHint) {
     	Point loc = getLocation();
-    	
-		int width = 700;
-		int height = 400;
+		int width = Math.max(300, label.getTextBounds().width);
+		int height = 200;
 		int margin = 50;
 		Dimension size = new Dimension(width, height);
 

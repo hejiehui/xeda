@@ -1,31 +1,24 @@
 package com.xross.tools.xeda.editor.requests;
 
 import org.eclipse.gef.Request;
-import org.eclipse.gef.RequestConstants;
 
-import com.xross.tools.xeda.editor.model.XedaDiagram;
+import com.xross.tools.xeda.editor.figures.DepartmentNodeFigure;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
 
 public class DepartmentLayoutRequest extends Request {
-	private XedaDiagram diagram;
-	private boolean isHorizantal;
-	private float alignment;
-	
-	public DepartmentLayoutRequest(XedaDiagram diagram, boolean isHorizantal, float alignment){
-		super(RequestConstants.REQ_ALIGN);
-		this.diagram = diagram;
-		this.alignment = alignment;
-		this.isHorizantal = isHorizantal;
+	private DepartmentNode department;
+	private DepartmentNodeFigure figure;
+	public DepartmentLayoutRequest(DepartmentNode department, DepartmentNodeFigure figure){
+		super("AutoLayout");
+		this.department = department;
+		this.figure = figure;
 	}
 	
-	public boolean isHorizantal() {
-		return isHorizantal;
+	public DepartmentNode getDepartmentNode() {
+		return department;
 	}
 
-	public float getAlignment() {
-		return alignment;
-	}
-
-	public XedaDiagram getDiagram() {
-		return diagram;
+	public DepartmentNodeFigure getFigure() {
+		return figure;
 	}
 }

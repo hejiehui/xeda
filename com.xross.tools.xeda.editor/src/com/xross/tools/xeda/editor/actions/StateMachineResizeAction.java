@@ -8,7 +8,7 @@ import com.xross.tools.xeda.editor.XedaDiagramGraphicalEditor;
 import com.xross.tools.xeda.editor.model.XedaDiagram;
 import com.xross.tools.xeda.editor.requests.ActorNodeResizeRequest;
 
-public class StateMachineResizeAction extends WorkbenchPartAction implements StateMachineActionConstants {
+public class StateMachineResizeAction extends WorkbenchPartAction implements XedaActionConstants {
 	private boolean horizantal;
 	private boolean nodeSize;
 	private boolean increase;

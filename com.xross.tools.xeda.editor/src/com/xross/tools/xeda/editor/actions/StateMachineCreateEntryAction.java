@@ -7,7 +7,7 @@ import com.xross.tools.xeda.editor.commands.ChangeEntryActionCommand;
 import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.parts.ImplementationFinder;
 
-public class StateMachineCreateEntryAction extends WorkbenchPartAction implements StateMachineActionConstants, StateMachineMessages{
+public class StateMachineCreateEntryAction extends WorkbenchPartAction implements XedaActionConstants, XedaMessages{
 	private ActorNode node;
 	private ImplementationFinder finder;
 	public StateMachineCreateEntryAction(IWorkbenchPart part, ActorNode node, ImplementationFinder finder){

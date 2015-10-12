@@ -1,6 +1,6 @@
 package com.xross.tools.xeda.editor.actions;
 
-public interface StateMachineMessages {
+public interface XedaMessages {
 	String ALIGN_LEFT_MSG = "Align left";
 	String ALIGN_CENTER_MSG = "Align center";
 	String ALIGN_RIGHT_MSG = "Align right";
@@ -44,5 +44,5 @@ public interface StateMachineMessages {
 	String OPEN_ENTRY_ACTION_MSG = "Open entry action";
 	String OPEN_EXIT_ACTION_MSG = "Open exit action";
 
-
+	String AUTO_LAYOUT_DEPARTMENT_MSG = "Auto layout department";
 }
