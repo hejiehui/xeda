@@ -1,24 +1,24 @@
 package com.xross.tools.xeda.editor.commands;
 
-import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 
 import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.XedaDiagram;
 
-public class CreateStateMachineCommand extends Command {
+public class CreateDepartmentCommand extends Command {
 	private XedaDiagram diagram;
 	private DepartmentNode department;
-	private Point location;
+	private Rectangle constraint;
 	
-	public CreateStateMachineCommand(XedaDiagram diagram, DepartmentNode department, Point location){
+	public CreateDepartmentCommand(XedaDiagram diagram, DepartmentNode department, Rectangle constraint){
 		this.diagram = diagram;
 		this.department = department;
-		this.location = location;
+		this.constraint = constraint;
 	}
 	
 	public void execute() {
-		department.setLocation(location);
+		department.setConstrain(constraint);
 		diagram.addDepartment(department);
 	}
 	

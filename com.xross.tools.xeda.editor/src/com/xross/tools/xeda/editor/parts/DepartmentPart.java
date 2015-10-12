@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -25,8 +26,7 @@ public class DepartmentPart extends AbstractGraphicalEditPart implements Propert
     }
 
 	protected IFigure createFigure() {
-		IFigure figure  = new DepartmentNodeFigure();
-        return figure;
+        return new DepartmentNodeFigure();
 	}
 	
 	public IFigure getContentPane(){
@@ -63,20 +63,10 @@ public class DepartmentPart extends AbstractGraphicalEditPart implements Propert
 	}
 	
     protected void refreshVisuals() {
-    	DepartmentNode node = (DepartmentNode) getModel();
+    	DepartmentNode department = (DepartmentNode) getModel();
     	DepartmentNodeFigure figure = (DepartmentNodeFigure)getFigure();
     	
-       	figure.setName(node.getName(), node.getDescription());
-		Point loc = node.getLocation();
-		Dimension size = new Dimension(700, 400);
-		if(!node.getNodes().isEmpty()) {
-			int x = 0;
-			int y = 0;
-			
-		}
-			
-        Rectangle rectangle = new Rectangle(loc, size);
-        ((GraphicalEditPart) getParent()).setLayoutConstraint(this, getFigure(), rectangle);
-
+       	figure.setName(department.getName(), department.getDescription());
+        ((GraphicalEditPart) getParent()).setLayoutConstraint(this, figure, department.getConstrain());
     }
 }

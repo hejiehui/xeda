@@ -9,7 +9,7 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 
-import com.xross.tools.xeda.editor.commands.CreateStateMachineCommand;
+import com.xross.tools.xeda.editor.commands.CreateDepartmentCommand;
 import com.xross.tools.xeda.editor.commands.LayoutDepartmentsCommand;
 import com.xross.tools.xeda.editor.commands.MoveDepartmentCommand;
 import com.xross.tools.xeda.editor.model.DepartmentNode;
@@ -27,7 +27,7 @@ public class XedaDiagramLayoutPolicy extends XYLayoutEditPolicy {
         
         MoveDepartmentCommand cmd = new MoveDepartmentCommand();
         cmd.setNode((DepartmentNode) child.getModel());
-        cmd.setLocation(((Rectangle)constraint).getLocation());
+        cmd.setConstrain(((Rectangle)constraint));
         return cmd;
     }
 
@@ -49,9 +49,9 @@ public class XedaDiagramLayoutPolicy extends XYLayoutEditPolicy {
 		if(!(request.getNewObject() instanceof DepartmentNode))
 			return null;
         
-		return new CreateStateMachineCommand(
+		return new CreateDepartmentCommand(
         		(XedaDiagram)getHost().getModel(),
         		(DepartmentNode)request.getNewObject(), 
-        		((Rectangle) getConstraintFor(request)).getLocation());
+        		((Rectangle) getConstraintFor(request)));
     }
 }

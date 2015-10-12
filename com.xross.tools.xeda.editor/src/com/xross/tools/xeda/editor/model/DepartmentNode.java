@@ -4,7 +4,9 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
@@ -17,7 +19,8 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 	private List<MessageType> events = new ArrayList<MessageType>();
 	private XedaHelper helper = new XedaHelper(this);
 	
-	private Point location;
+	private Rectangle constrain;
+	private Dimension size;
 	
 	private PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
@@ -79,15 +82,24 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 		firePropertyChange(STATE_NODE);
 	}
 
-	public void setLocation(Point location) {
-		this.location = location;
-		listeners.firePropertyChange(PROP_LOCATION, null, location);
+	public void setConstrain(Rectangle constrain) {
+		this.constrain = constrain;
+		listeners.firePropertyChange(PROP_LOCATION, null, constrain);
 	}
 
-	public Point getLocation() {
-		return location;
+	public Rectangle getConstrain() {
+		return constrain;
 	}
 	
+	public Dimension getSize() {
+		return size;
+	}
+
+	public void setSize(Dimension size) {
+		this.size = size;
+		listeners.firePropertyChange(PROP_LOCATION, null, constrain);
+	}
+
 	public String getName() {
 		return name;
 	}

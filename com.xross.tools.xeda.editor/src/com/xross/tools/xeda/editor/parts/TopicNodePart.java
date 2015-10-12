@@ -96,7 +96,7 @@ public class TopicNodePart extends AbstractGraphicalEditPart implements XedaCons
 
     	figure.setName(node.getId());
 		Point loc = node.getLocation();
-		Dimension size = figure.getGoodSize();
+		Dimension size = figure.getPreferredSize();
         Rectangle rectangle = new Rectangle(loc, size);
         ((GraphicalEditPart) getParent()).setLayoutConstraint(this, getFigure(), rectangle);
     }

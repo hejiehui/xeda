@@ -43,7 +43,7 @@ public class QueueNodeFigure extends RoundedRectangle {
         add(nameLabel);
     }
     
-    public Dimension getGoodSize() {
+    public Dimension getPreferredSize(int wHint, int hHint) {
         return new Dimension(Math.max(100, nameLabel.getTextBounds().width + 10), 50);
     }
 

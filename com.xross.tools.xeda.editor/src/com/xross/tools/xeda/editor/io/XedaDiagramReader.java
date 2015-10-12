@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -52,9 +54,11 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 
 		department.setNodes(readNodes(baseNodes));
 		linkNodes(department, transitionsNode);
-		department.setLocation(new Point(
+		department.setConstrain(new Rectangle(
 				getIntAttribute(departmentNode, X_LOC), 
-				getIntAttribute(departmentNode, Y_LOC)));
+				getIntAttribute(departmentNode, Y_LOC),
+				getIntAttribute(departmentNode, WIDTH), 
+				getIntAttribute(departmentNode, HEIGHT)));
 
 		return department;
 	}

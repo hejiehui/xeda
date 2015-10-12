@@ -17,6 +17,8 @@ public interface XedaDiagramConstants {
 
 	String X_LOC = "x_loc";
 	String Y_LOC = "y_loc";
+	String WIDTH = "width";
+	String HEIGHT = "height";
 	
 	String ACTOR_CLASS = "actorClass";
 	String ERROR_HANDLER = "errorHandler";

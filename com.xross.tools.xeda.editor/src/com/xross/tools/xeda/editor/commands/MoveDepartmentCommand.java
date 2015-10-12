@@ -1,6 +1,7 @@
 package com.xross.tools.xeda.editor.commands;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 
 import com.xross.tools.xeda.editor.model.DepartmentNode;
@@ -8,12 +9,13 @@ import com.xross.tools.xeda.editor.model.DepartmentNode;
 public class MoveDepartmentCommand extends Command {
     private DepartmentNode node;
 
-    private Point oldLocation;
+    private Rectangle oldConstrain;
 
-    private Point newLocation;
+    private Rectangle newConstrain;
 
-    public void setLocation(Point location) {
-    	newLocation = location;
+    public void setConstrain(Rectangle constrain) {
+    	newConstrain = constrain;
+    	newConstrain.setLocation(Point.max(new Point(0, 0), constrain.getLocation()));
     }
 
     public void setNode(DepartmentNode node) {
@@ -21,8 +23,8 @@ public class MoveDepartmentCommand extends Command {
     }
 
     public void execute() {
-    	oldLocation = node.getLocation();
-        node.setLocation(newLocation);
+    	oldConstrain = node.getConstrain();
+        node.setConstrain(newConstrain);
     }
 
     public String getLabel() {
@@ -30,10 +32,10 @@ public class MoveDepartmentCommand extends Command {
     }
 
     public void redo() {
-        node.setLocation(newLocation);
+        node.setConstrain(newConstrain);
     }
 
     public void undo() {
-        node.setLocation(oldLocation);
+        node.setConstrain(oldConstrain);
     }
 }

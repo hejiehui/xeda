@@ -13,7 +13,7 @@ public class MoveNodeCommand extends Command {
     private Point newLocation;
 
     public void setLocation(Point location) {
-    	newLocation = location;
+    	newLocation = Point.max(new Point(0, 0), location);
     }
 
     public void setNode(BaseNode node) {

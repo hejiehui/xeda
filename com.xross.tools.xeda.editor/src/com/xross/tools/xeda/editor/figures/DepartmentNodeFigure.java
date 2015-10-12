@@ -11,6 +11,7 @@ import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 
 import com.xross.tools.xeda.editor.Activator;
 import com.xross.tools.xeda.editor.model.XedaConstants;
@@ -54,5 +55,23 @@ public class DepartmentNodeFigure extends Figure implements XedaConstants{
     
     public IFigure getFigure(){
     	return figure;
+    }
+    
+    public Dimension getPreferredSize(int wHint, int hHint) {
+    	Point loc = getLocation();
+    	
+		int width = 700;
+		int height = 400;
+		int margin = 50;
+		Dimension size = new Dimension(width, height);
+
+		for(Object node: getFigure().getChildren()){
+			Figure child = (Figure)node;
+			width = Math.max(width, (child.getLocation().x - loc.x) + child.getPreferredSize().width);
+			height = Math.max(height, (child.getLocation().y - loc.y)+ child.getPreferredSize().height);
+		}
+		
+		size = new Dimension(width + margin, height + margin);
+		return size;
     }
 }
