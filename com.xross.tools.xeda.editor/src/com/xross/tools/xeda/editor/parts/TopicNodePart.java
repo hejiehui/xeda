@@ -4,7 +4,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -32,19 +31,19 @@ public class TopicNodePart extends AbstractGraphicalEditPart implements XedaCons
 		return new TopicNodeFigure();
     }
 	public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
-        return new ChopboxAnchor(getFigure());
+        return new BaseNodeAnchor(getFigure());
 	}
 
 	public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
-        return new ChopboxAnchor(getFigure());
+        return new BaseNodeAnchor(getFigure());
 	}
 
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
-        return new ChopboxAnchor(getFigure());
+        return new BaseNodeAnchor(getFigure());
 	}
 
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
-        return new ChopboxAnchor(getFigure());
+        return new BaseNodeAnchor(getFigure());
 	}
 
 	public void performRequest(Request req) {

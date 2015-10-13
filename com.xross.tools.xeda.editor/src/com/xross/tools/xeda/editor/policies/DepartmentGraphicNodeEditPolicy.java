@@ -10,7 +10,6 @@ import com.xross.tools.xeda.editor.commands.ReconnectSourceCommand;
 import com.xross.tools.xeda.editor.commands.ReconnectTargetCommand;
 import com.xross.tools.xeda.editor.model.BaseNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
-import com.xross.tools.xeda.editor.model.TopicNode;
 
 public class DepartmentGraphicNodeEditPolicy extends GraphicalNodeEditPolicy {
 	protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
@@ -20,9 +19,6 @@ public class DepartmentGraphicNodeEditPolicy extends GraphicalNodeEditPolicy {
 	}
 
 	protected Command getConnectionCreateCommand(CreateConnectionRequest request) {
-		if(getHost().getModel() instanceof TopicNode)
-			return null;
-		
 		CreateTransitionCommand cmd = new CreateTransitionCommand();
 		cmd.setSource((BaseNode)getHost().getModel());
 		request.setStartCommand(cmd);

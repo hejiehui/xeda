@@ -41,19 +41,19 @@ public class ActorNodePart extends AbstractGraphicalEditPart implements XedaCons
     }
 	
 	public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
-        return new ChopboxAnchor(getFigure());
+        return new BaseNodeAnchor(getFigure());
 	}
 
 	public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
-        return new ChopboxAnchor(getFigure());
+        return new BaseNodeAnchor(getFigure());
 	}
 
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
-        return new ChopboxAnchor(getFigure());
+        return new BaseNodeAnchor(getFigure());
 	}
 
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
-        return new ChopboxAnchor(getFigure());
+        return new BaseNodeAnchor(getFigure());
 	}
 	
 	protected void createEditPolicies() {

@@ -19,6 +19,7 @@ import com.xross.tools.xeda.editor.figures.DepartmentNodeFigure;
 import com.xross.tools.xeda.editor.model.BaseNode;
 import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.policies.DepartmentLayoutPolicy;
+import com.xross.tools.xeda.editor.policies.DepartmentNodeComponentEditPolicy;
 
 public class DepartmentPart extends AbstractGraphicalEditPart implements PropertyChangeListener, ContextMenuBuilder {
     protected List<BaseNode> getModelChildren() {
@@ -49,6 +50,7 @@ public class DepartmentPart extends AbstractGraphicalEditPart implements Propert
 	}
 
     protected void createEditPolicies() {
+    	installEditPolicy(EditPolicy.COMPONENT_ROLE, new DepartmentNodeComponentEditPolicy());
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new DepartmentLayoutPolicy());
     }
     
