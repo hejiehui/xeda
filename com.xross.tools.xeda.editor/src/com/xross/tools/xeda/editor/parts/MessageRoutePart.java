@@ -19,17 +19,19 @@ import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 
 import com.xross.tools.xeda.editor.model.MessageRoute;
+import com.xross.tools.xeda.editor.model.RouteStyle;
 import com.xross.tools.xeda.editor.policies.MessageRouteComponentEditPolicy;
 
 public class MessageRoutePart extends AbstractConnectionEditPart implements PropertyChangeListener {
 	private Label label;
     protected IFigure createFigure() {
+        MessageRoute nodeConn = (MessageRoute)getModel();
+        
         PolylineConnection conn = new PolylineConnection();
         conn.setTargetDecoration(new PolygonDecoration());
-        conn.setConnectionRouter(new MyRouter());//BendpointConnectionRouter());
+        conn.setConnectionRouter(new MyRouter(nodeConn.getStyle()));//BendpointConnectionRouter());
         conn.setForegroundColor(ColorConstants.black);
         
-        MessageRoute nodeConn = (MessageRoute)getModel();
         label = new Label();
         label.setText(nodeConn.getRouteId());
         label.setOpaque(true);
@@ -66,19 +68,40 @@ public class MessageRoutePart extends AbstractConnectionEditPart implements Prop
     }
     
     private class MyRouter extends AbstractRouter {
+    	RouteStyle style;
+    	public MyRouter(RouteStyle style) {
+    		this.style = style;
+    	}
+    	
 		@Override
 		public void route(Connection conn) {
-			PointList pl = conn.getPoints();
-			pl.removeAllPoints();
-			Point start = getStartPoint(conn);
-			conn.translateToRelative(start);
-			Point end = getEndPoint(conn);
-			conn.translateToRelative(end);
-		        
-			pl.addPoint(start);
-	    	Point middle = new Point(start.x, end.y);
-	    	pl.addPoint(middle);
-			pl.addPoint(end);
+			if(style == RouteStyle.direct)
+				return;
+			if(style == RouteStyle.heightFirst) {
+				PointList pl = conn.getPoints();
+				pl.removeAllPoints();
+				Point start = getStartPoint(conn);
+				conn.translateToRelative(start);
+				Point end = getEndPoint(conn);
+				conn.translateToRelative(end);
+			        
+				pl.addPoint(start);
+		    	Point middle = new Point(start.x, end.y);
+		    	pl.addPoint(middle);
+				pl.addPoint(end);
+			}else {
+				PointList pl = conn.getPoints();
+				pl.removeAllPoints();
+				Point start = getStartPoint(conn);
+				conn.translateToRelative(start);
+				Point end = getEndPoint(conn);
+				conn.translateToRelative(end);
+			        
+				pl.addPoint(start);
+		    	Point middle = new Point(end.x, start.y);
+		    	pl.addPoint(middle);
+				pl.addPoint(end);
+			}
 		}
     }
 }

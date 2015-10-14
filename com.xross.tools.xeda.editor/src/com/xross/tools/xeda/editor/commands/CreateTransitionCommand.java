@@ -4,6 +4,7 @@ import org.eclipse.gef.commands.Command;
 
 import com.xross.tools.xeda.editor.model.BaseNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
+import com.xross.tools.xeda.editor.model.RouteStyle;
 
 public class CreateTransitionCommand extends Command {
 	private MessageRoute transition;
@@ -11,7 +12,7 @@ public class CreateTransitionCommand extends Command {
 	private BaseNode target;
 
 	public void execute() {
-		transition = new MessageRoute(source, target);
+		transition = new MessageRoute(source, target, RouteStyle.heightFirst);
 	}
 
 	public void redo() {

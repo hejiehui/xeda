@@ -10,6 +10,7 @@ public class MessageRoute implements XedaConstants, IPropertySource {
 	private String routeId;
 	private BaseNode source;
 	private BaseNode target;
+	private RouteStyle style;
 
 	private PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
@@ -55,9 +56,10 @@ public class MessageRoute implements XedaConstants, IPropertySource {
 		return value == null ? "" : value;
 	}
 
-	public MessageRoute(BaseNode source, BaseNode target) {
+	public MessageRoute(BaseNode source, BaseNode target, RouteStyle style) {
 		this.source = source;
 		this.target = target;
+		this.style = style;
 		source.addOutput(this);
 		target.addInput(this);
 	}
@@ -87,5 +89,14 @@ public class MessageRoute implements XedaConstants, IPropertySource {
 	public void setTarget(BaseNode target) {
 		this.target = target;
 		firePropertyChange(PROP_TARGET);
+	}
+
+	public RouteStyle getStyle() {
+		return style;
+	}
+
+	public void setStyle(RouteStyle style) {
+		this.style = style;
+		firePropertyChange(PROP_STYLE);
 	}
 }

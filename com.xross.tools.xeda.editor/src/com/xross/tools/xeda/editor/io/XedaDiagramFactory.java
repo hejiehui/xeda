@@ -1,11 +1,13 @@
 package com.xross.tools.xeda.editor.io;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.w3c.dom.Document;
 
 import com.xross.tools.xeda.editor.model.ActorNode;
 import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
+import com.xross.tools.xeda.editor.model.RouteStyle;
 import com.xross.tools.xeda.editor.model.XedaConstants;
 import com.xross.tools.xeda.editor.model.XedaDiagram;
 
@@ -39,12 +41,13 @@ public class XedaDiagramFactory implements XedaConstants{
 			b.setId("state" + i);
 			sm.getNodes().add(b);
 			
-			MessageRoute t = new MessageRoute(a, b);
+			MessageRoute t = new MessageRoute(a, b, RouteStyle.heightFirst);
 			t.setRouteId("route " + i);
 			
 			a = b;
 		}		
 		
+		sm.setConstrain(new Rectangle(10, 10, 100, 100));
 		return sm;
 	}
 	

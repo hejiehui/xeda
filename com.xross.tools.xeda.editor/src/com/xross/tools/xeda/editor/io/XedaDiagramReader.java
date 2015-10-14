@@ -20,6 +20,7 @@ import com.xross.tools.xeda.editor.model.BaseNode;
 import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
 import com.xross.tools.xeda.editor.model.QueueNode;
+import com.xross.tools.xeda.editor.model.RouteStyle;
 import com.xross.tools.xeda.editor.model.TopicNode;
 import com.xross.tools.xeda.editor.model.XedaDiagram;
 
@@ -117,7 +118,7 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 			Node node = transitions.item(i);
 			BaseNode source = nodes.get(getAttribute(node, SOURCE_ID));
 			BaseNode target = nodes.get(getAttribute(node, TARGET_ID));
-			MessageRoute route = new MessageRoute(source, target);
+			MessageRoute route = new MessageRoute(source, target, RouteStyle.heightFirst);
 			route.setRouteId(getAttribute(node, ROUTE_ID));
 		}
 	}

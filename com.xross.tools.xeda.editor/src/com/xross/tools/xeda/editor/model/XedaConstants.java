@@ -20,6 +20,7 @@ public interface XedaConstants {
 	String PROP_INPUTS = "Inputs";
 	String PROP_OUTPUTS = "Outputs";
 	String PROP_SOURCE = "Source";
+	String PROP_STYLE = "Style";
 	String PROP_TARGET = "Target";
 	
 	String PROP_SIZE = "size";
