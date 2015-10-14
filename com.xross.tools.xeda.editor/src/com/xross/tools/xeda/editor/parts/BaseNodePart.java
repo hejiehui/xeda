@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
+import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
@@ -24,19 +25,26 @@ import com.xross.tools.xeda.editor.policies.DepartmentGraphicNodeEditPolicy;
 
 public abstract class BaseNodePart extends AbstractGraphicalEditPart implements XedaConstants, PropertyChangeListener, NodeEditPart, ContextMenuBuilder {
 	public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
-        return new BaseNodeAnchor(getFigure(), true, ((MessageRoute)connection.getModel()).getStyle());
+        return getAnchor(true, ((MessageRoute)connection.getModel()).getStyle());
 	}
 
 	public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
-        return new BaseNodeAnchor(getFigure(), false, ((MessageRoute)connection.getModel()).getStyle());
+        return getAnchor(false, ((MessageRoute)connection.getModel()).getStyle());
 	}
 
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
-        return new BaseNodeAnchor(getFigure(), true, RouteStyle.heightFirst);
+        return getAnchor(true, RouteStyle.direct);
 	}
 
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
-        return new BaseNodeAnchor(getFigure(), false, RouteStyle.heightFirst);
+        return getAnchor(false, RouteStyle.direct);
+	}
+	
+	private ConnectionAnchor getAnchor(boolean isSource, RouteStyle style) {
+		if(style == RouteStyle.direct)
+			return new ChopboxAnchor(getFigure());
+		
+		return new BaseNodeAnchor(getFigure(), isSource, style);
 	}
 	
 	protected void createEditPolicies() {

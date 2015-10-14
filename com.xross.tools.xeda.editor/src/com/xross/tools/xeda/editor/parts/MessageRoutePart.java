@@ -75,17 +75,14 @@ public class MessageRoutePart extends AbstractConnectionEditPart implements Prop
     	
 		@Override
 		public void route(Connection conn) {
-			if(style == RouteStyle.direct)
-				return;
-
 			PointList pl = conn.getPoints();
 			pl.removeAllPoints();
 			Point start = getStartPoint(conn);
 			conn.translateToRelative(start);
 			Point end = getEndPoint(conn);
 			conn.translateToRelative(end);
-			
-			if(start.x == end.x || start.y == end.y) {
+
+			if(style == RouteStyle.direct || start.x == end.x || start.y == end.y) {
 				pl.addPoint(start);
 				pl.addPoint(end);
 				return;
