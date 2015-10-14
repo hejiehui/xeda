@@ -5,21 +5,22 @@ import org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 
-import com.xross.tools.xeda.editor.commands.CreateTransitionCommand;
+import com.xross.tools.xeda.editor.commands.CreateMessageRouteCommand;
 import com.xross.tools.xeda.editor.commands.ReconnectSourceCommand;
 import com.xross.tools.xeda.editor.commands.ReconnectTargetCommand;
 import com.xross.tools.xeda.editor.model.BaseNode;
 import com.xross.tools.xeda.editor.model.MessageRoute;
+import com.xross.tools.xeda.editor.model.RouteStyle;
 
 public class DepartmentGraphicNodeEditPolicy extends GraphicalNodeEditPolicy {
 	protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
-		CreateTransitionCommand cmd = (CreateTransitionCommand)request.getStartCommand();
+		CreateMessageRouteCommand cmd = (CreateMessageRouteCommand)request.getStartCommand();
 		cmd.setTarget((BaseNode)getHost().getModel());
 		return cmd;
 	}
 
 	protected Command getConnectionCreateCommand(CreateConnectionRequest request) {
-		CreateTransitionCommand cmd = new CreateTransitionCommand();
+		CreateMessageRouteCommand cmd = new CreateMessageRouteCommand((RouteStyle)request.getNewObjectType());
 		cmd.setSource((BaseNode)getHost().getModel());
 		request.setStartCommand(cmd);
 		return cmd;

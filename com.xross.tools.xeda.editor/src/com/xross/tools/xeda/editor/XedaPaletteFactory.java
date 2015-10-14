@@ -13,12 +13,14 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.PaletteSeparator;
 import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
+import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.requests.SimpleFactory;
 
-import com.xross.tools.xeda.editor.model.TopicNode;
-import com.xross.tools.xeda.editor.model.QueueNode;
-import com.xross.tools.xeda.editor.model.DepartmentNode;
 import com.xross.tools.xeda.editor.model.ActorNode;
+import com.xross.tools.xeda.editor.model.DepartmentNode;
+import com.xross.tools.xeda.editor.model.QueueNode;
+import com.xross.tools.xeda.editor.model.RouteStyle;
+import com.xross.tools.xeda.editor.model.TopicNode;
 
 public class XedaPaletteFactory {
 	private Class<XedaPaletteFactory> imageClass = XedaPaletteFactory.class;
@@ -41,6 +43,12 @@ public class XedaPaletteFactory {
     	{"Actor Node", ActorNode.class, Activator.ACTOR_NODE},
     	{"Queue Node", QueueNode.class, Activator.QUEUE_NODE},
     	{"Topic Node", TopicNode.class, Activator.TOPIC_NODE},
+    };
+
+    private static Object[][] CONN_ENTRIES = new Object[][]{
+    	{"Direct Message Route", RouteStyle.direct, Activator.TRANSITION},
+    	{"Height First Message Route", RouteStyle.heightFirst, Activator.TRANSITION},
+    	{"Width First Message Route", RouteStyle.widthFirst, Activator.TRANSITION},
     };
 
     private PaletteContainer createControlGroup(PaletteRoot root) {
@@ -69,14 +77,18 @@ public class XedaPaletteFactory {
     	}
 
     	entries.add(new PaletteSeparator());
-    	entries.add(new ConnectionCreationToolEntry(
-    			"Transition",
-    			"Transition",
-    			null,
-    			Activator.getDefault().getImageRegistry().getDescriptor(Activator.TRANSITION),    			
-    			Activator.getDefault().getImageRegistry().getDescriptor(Activator.TRANSITION)));
+    	for(final Object[] entry: CONN_ENTRIES) {
+	    	entries.add(new ConnectionCreationToolEntry(
+	    			(String)entry[0],
+	    			(String)entry[0],
+	    			new CreationFactory() {
+						public Object getNewObject() { return entry[1];}
+						public Object getObjectType() { return entry[1];}
+	    			},
+	    			Activator.getDefault().getImageRegistry().getDescriptor(((String)entry[2])),    			
+	    			Activator.getDefault().getImageRegistry().getDescriptor(((String)entry[2]))));
+    	}
     	controlGroup.addAll(entries);
         return controlGroup;
-    }    
-
+    }
 }

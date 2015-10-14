@@ -3,52 +3,29 @@ package com.xross.tools.xeda.editor.parts;
 import org.eclipse.draw2d.AbstractConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import com.xross.tools.xeda.editor.model.RouteStyle;
 
 public class BaseNodeAnchor extends AbstractConnectionAnchor {
 	private boolean isSource;
+	private boolean isTarget;
 	private RouteStyle style;
 	public BaseNodeAnchor(IFigure owner, boolean isSource, RouteStyle style) {
 		super(owner);
 		this.isSource = isSource;
+		isTarget = !isSource;
 		this.style = style;
 	}
 
-	public Point getLocation(Point loc)
+	public Point getLocation(Point reference)
 	{
-		return getLocationX(loc);
-//		Rectangle r = getOwner().getBounds();
-//		int x = r.x + r.width/2;
-//		int x = loc.x < r.x ? r.x : r.x + r.width;
-//		int y = r.y + r.height/2;
-//		int y = loc.y < r.y ? r.y : r.y + r.height;
-//		int x = compute(loc.x, r.x, r.width);
-//		int y = compute(loc.y, r.y, r.height);
-//		Point p = new PrecisionPoint(x,y);
-//		getOwner().translateToAbsolute(p);
-//		return p;
-	}
-	
-	private int compute(int loc, int r, int edge) {
-		if(loc < r)
-			return r;
-		
-		if(loc < (edge + r))
-			return r + edge/2;
-		
-		return r + edge;
-	}
-	
-	public Point getLocationX(Point loc) {
 		Rectangle r = getOwner().getBounds();
-		int sectionX = decideSection(loc.x, r.x, r.width);
-		int sectionY = decideSection(loc.y, r.y, r.height);
-		return decide(sectionX, sectionY);
+		int sectionX = decideSection(reference.x, r.x, r.width);
+		int sectionY = decideSection(reference.y, r.y, r.height);
+		return decide(sectionY, sectionX, reference);
 	}
-	
+
 	private static final int TOP_LEFT = 0;
 	private static final int CENTER = 1;
 	private static final int BOTTOM_RIGHT = 2;
@@ -68,34 +45,34 @@ public class BaseNodeAnchor extends AbstractConnectionAnchor {
 		return loc < (bottomRight) ? CENTER :BOTTOM_RIGHT;
 	}
 	
-	int[][] decisoinSource = new int[][] {
+	private int[][] decisoinSource = new int[][] {
 			new int[]{TOP, TOP, TOP},
 			new int[]{LEFT, CENTERX, RIGHT},
 			new int[]{BOTTOM, BOTTOM, BOTTOM},
 	};
 	
-	int[][] decisoinTarget = new int[][] {
+	private int[][] decisoinTarget = new int[][] {
 			new int[]{LEFT, TOP, RIGHT},
 			new int[]{LEFT, CENTERX, RIGHT},
 			new int[]{LEFT, BOTTOM, RIGHT},
 	};
 	
-	private Point decide(int sectionX, int sectionY) {
+	private Point decide(int sectionX, int sectionY, Point reference) {
 		Rectangle r = getOwner().getBounds();
 		
 		int[][] decisoinMatrix = isSource ? decisoinSource: decisoinTarget;
 		int decision = decisoinMatrix[sectionX][sectionY];
 		switch (decision) {
 			case TOP:
-				return r.getTop();
+				return isTarget && style == RouteStyle.heightFirst ? r.getTop().setX(reference.x) : r.getTop();
 			case LEFT:
-				return r.getLeft();
+				return isSource && style == RouteStyle.heightFirst ? r.getLeft().setY(reference.y) : r.getLeft();
 			case CENTERX:
 				return r.getCenter();
 			case RIGHT:
-				return r.getRight();
+				return isSource && style == RouteStyle.heightFirst ? r.getRight().setY(reference.y) : r.getRight();
 			case BOTTOM:
-				return r.getBottom();
+				return isTarget && style == RouteStyle.heightFirst ? r.getBottom().setX(reference.x) : r.getBottom();
 			default:
 				return null;
 		}

@@ -77,31 +77,29 @@ public class MessageRoutePart extends AbstractConnectionEditPart implements Prop
 		public void route(Connection conn) {
 			if(style == RouteStyle.direct)
 				return;
-			if(style == RouteStyle.heightFirst) {
-				PointList pl = conn.getPoints();
-				pl.removeAllPoints();
-				Point start = getStartPoint(conn);
-				conn.translateToRelative(start);
-				Point end = getEndPoint(conn);
-				conn.translateToRelative(end);
-			        
+
+			PointList pl = conn.getPoints();
+			pl.removeAllPoints();
+			Point start = getStartPoint(conn);
+			conn.translateToRelative(start);
+			Point end = getEndPoint(conn);
+			conn.translateToRelative(end);
+			
+			if(start.x == end.x || start.y == end.y) {
 				pl.addPoint(start);
-		    	Point middle = new Point(start.x, end.y);
-		    	pl.addPoint(middle);
 				pl.addPoint(end);
+				return;
+			}
+		        
+			pl.addPoint(start);
+			if(style == RouteStyle.heightFirst) {
+				Point middle = new Point(start.x, end.y);
+		    	pl.addPoint(middle);
 			}else {
-				PointList pl = conn.getPoints();
-				pl.removeAllPoints();
-				Point start = getStartPoint(conn);
-				conn.translateToRelative(start);
-				Point end = getEndPoint(conn);
-				conn.translateToRelative(end);
-			        
-				pl.addPoint(start);
 		    	Point middle = new Point(end.x, start.y);
 		    	pl.addPoint(middle);
-				pl.addPoint(end);
 			}
+			pl.addPoint(end);
 		}
     }
 }
