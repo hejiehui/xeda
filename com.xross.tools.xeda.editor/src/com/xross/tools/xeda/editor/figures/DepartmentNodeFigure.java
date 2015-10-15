@@ -41,7 +41,6 @@ public class DepartmentNodeFigure extends Figure implements XedaConstants{
         
         figure = new Figure();
         figure.setLayoutManager(new XYLayout());
-        figure.setPreferredSize(new Dimension(700, 400));
 
         add(figure);
         setBorder(new LineBorder(ColorConstants.lightGray, 1));

@@ -46,9 +46,9 @@ public class XedaPaletteFactory {
     };
 
     private static Object[][] CONN_ENTRIES = new Object[][]{
-    	{"Direct Message Route", RouteStyle.direct, Activator.TRANSITION},
-    	{"Height First Message Route", RouteStyle.heightFirst, Activator.TRANSITION},
-    	{"Width First Message Route", RouteStyle.widthFirst, Activator.TRANSITION},
+    	{"Direct Route", RouteStyle.direct, Activator.ROUTE_DIRECT},
+    	{"Height First Route", RouteStyle.heightFirst, Activator.ROUTE_HEIGHT_FIRST},
+    	{"Width First Route", RouteStyle.widthFirst, Activator.ROUTE_WIDTH_FIRST},
     };
 
     private PaletteContainer createControlGroup(PaletteRoot root) {
