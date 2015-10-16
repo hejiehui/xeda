@@ -24,12 +24,13 @@ import com.xross.tools.xeda.editor.policies.MessageRouteComponentEditPolicy;
 
 public class MessageRoutePart extends AbstractConnectionEditPart implements PropertyChangeListener {
 	private Label label;
+	private MyRouter router;
     protected IFigure createFigure() {
         MessageRoute nodeConn = (MessageRoute)getModel();
         
         PolylineConnection conn = new PolylineConnection();
         conn.setTargetDecoration(new PolygonDecoration());
-        conn.setConnectionRouter(new MyRouter(nodeConn.getStyle()));//BendpointConnectionRouter());
+        conn.setConnectionRouter(router = new MyRouter(nodeConn.getStyle()));
         conn.setForegroundColor(ColorConstants.black);
         
         label = new Label();
@@ -38,7 +39,7 @@ public class MessageRoutePart extends AbstractConnectionEditPart implements Prop
         conn.add(label, new MidpointLocator(conn, 0));
         return conn;
     }
-
+    
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new MessageRouteComponentEditPolicy());
         installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, new ConnectionEndpointEditPolicy());
@@ -64,7 +65,9 @@ public class MessageRoutePart extends AbstractConnectionEditPart implements Prop
     
     public void propertyChange(PropertyChangeEvent event){
     	MessageRoute nodeConn = (MessageRoute)getModel();
+    	router.style = nodeConn.getStyle();
     	label.setText(nodeConn.getRouteId());
+    	refresh();
     }
     
     private class MyRouter extends AbstractRouter {

@@ -2,6 +2,7 @@ package com.xross.tools.xeda.editor.model;
 
 import java.beans.PropertyChangeSupport;
 
+import org.eclipse.ui.views.properties.ComboBoxPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
@@ -24,14 +25,18 @@ public class MessageRoute implements XedaConstants, IPropertySource {
 
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		IPropertyDescriptor[] descriptors;
-		descriptors = new IPropertyDescriptor[] { new TextPropertyDescriptor(
-				PROP_ROUTE_ID, PROP_ROUTE_ID), };
+		descriptors = new IPropertyDescriptor[] { 
+				new TextPropertyDescriptor(PROP_ROUTE_ID, PROP_ROUTE_ID), 
+				new ComboBoxPropertyDescriptor(PROP_STYLE, PROP_STYLE, RouteStyle.getNames()),
+				};
 		return descriptors;
 	}
 
 	public Object getPropertyValue(Object propName) {
 		if (PROP_ROUTE_ID.equals(propName))
 			return getValue(routeId);
+		if(PROP_STYLE.equals(propName))
+			return RouteStyle.getIndex(style);
 
 		return null;
 	}
@@ -39,6 +44,10 @@ public class MessageRoute implements XedaConstants, IPropertySource {
 	public void setPropertyValue(Object propName, Object value) {
 		if (PROP_ROUTE_ID.equals(propName))
 			setRouteId((String) value);
+		if(PROP_STYLE.equals(propName))
+			style = RouteStyle.values()[(Integer)value];
+		
+		firePropertyChange((String)propName);
 	}
 
 	public Object getEditableValue() {

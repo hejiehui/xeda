@@ -118,7 +118,7 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 			Node node = transitions.item(i);
 			BaseNode source = nodes.get(getAttribute(node, SOURCE_ID));
 			BaseNode target = nodes.get(getAttribute(node, TARGET_ID));
-			MessageRoute route = new MessageRoute(source, target, RouteStyle.heightFirst);
+			MessageRoute route = new MessageRoute(source, target, RouteStyle.valueOf(getAttribute(node, STYLE)));
 			route.setRouteId(getAttribute(node, ROUTE_ID));
 		}
 	}
