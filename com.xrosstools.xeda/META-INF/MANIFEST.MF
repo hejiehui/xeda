@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Xeda
+Bundle-SymbolicName: com.xrosstools.xeda
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: XROSS
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Export-Package: com.xrosstools.xeda

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="com.xrosstools.xeda.editor.XedaDiagramGraphicalEditor"
+            contributorClass="com.xrosstools.xeda.editor.XedaActionBarContributor"
+            default="true"
+            extensions="xeda"
+            icon="icons/state_machine_diagram.ico"
+            id="com.xross.tools.xeda.editor.XedaDiagramGraphicalEditor"
+            name="Xross Actor Diagram Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="com.xross.tools"
+            class="com.xrosstools.xeda.editor.NewXedaDiagramWizard"
+            icon="icons/state_machine_diagram.ico"
+            id="com.xross.tools.xeda.editor.newWizard"
+            name="New XEDA Model Wizard">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            alias-for="xe"
+            base-type="org.eclipse.core.runtime.xml"
+            file-extensions="xeda"
+            id="com.xross.tools.xeda"
+            name="Xross Actor Diagram"
+            priority="high">
+      </content-type>
+   </extension>
+
+</plugin>
