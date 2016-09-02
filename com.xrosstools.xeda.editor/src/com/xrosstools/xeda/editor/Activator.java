@@ -11,7 +11,7 @@ import org.osgi.framework.BundleContext;
 public class Activator extends AbstractUIPlugin {
 
 	// The plug-in ID 
-	public static final String PLUGIN_ID = "com.xross.tools.xeda.editor"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "com.xrosstools.xeda.editor"; //$NON-NLS-1$
 
 	public static final String HOME = "icons/";
 	public static final String ICO = ".ico";
