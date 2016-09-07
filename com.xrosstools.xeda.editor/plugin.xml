@@ -10,17 +10,20 @@
             default="true"
             extensions="xeda"
             icon="icons/state_machine_diagram.ico"
-            id="com.xross.tools.xeda.editor.XedaDiagramGraphicalEditor"
+            id="com.xrosstools.xeda.editor.XedaDiagramGraphicalEditor"
             name="Xross Actor Diagram Editor">
+         <contentTypeBinding
+               contentTypeId="com.xrosstools.xeda">
+         </contentTypeBinding>
       </editor>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
       <wizard
-            category="com.xross.tools"
+            category="com.xrosstools"
             class="com.xrosstools.xeda.editor.NewXedaDiagramWizard"
             icon="icons/state_machine_diagram.ico"
-            id="com.xross.tools.xeda.editor.newWizard"
+            id="com.xrosstools.xeda.editor.newWizard"
             name="New XEDA Model Wizard">
       </wizard>
    </extension>
@@ -30,7 +33,7 @@
             alias-for="xe"
             base-type="org.eclipse.core.runtime.xml"
             file-extensions="xeda"
-            id="com.xross.tools.xeda"
+            id="com.xrosstools.xeda"
             name="Xross Actor Diagram"
             priority="high">
       </content-type>

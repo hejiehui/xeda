@@ -1,3 +1,0 @@
-1. 
-2. create message abstraction for integration with different message bus provided 
-3. create message encode/decode framework to allow separation of message format and decoder/encoder
