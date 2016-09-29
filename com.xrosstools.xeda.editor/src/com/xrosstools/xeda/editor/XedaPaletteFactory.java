@@ -39,7 +39,7 @@ public class XedaPaletteFactory {
     }
     
     private static Object[][] ENTRIES = new Object[][]{
-    	{"State Machine", DepartmentNode.class, Activator.STATE_MACHINE},
+    	{"Actor Group", DepartmentNode.class, Activator.STATE_MACHINE},
     	{"Actor Node", ActorNode.class, Activator.ACTOR_NODE},
     	{"Queue Node", QueueNode.class, Activator.QUEUE_NODE},
     	{"Topic Node", TopicNode.class, Activator.TOPIC_NODE},
