@@ -15,40 +15,38 @@ public class XedaDiagramFactory implements XedaConstants{
 	public static final String LOCATION = "location";
 	
 	public XedaDiagram getEmptyDiagram(){
-		XedaDiagram smd = new XedaDiagram();
-		smd.setName("StateMachineDiagram");	
+		XedaDiagram xeda = new XedaDiagram();
+		xeda.setName("StateMachineDiagram");	
 		
-//		smd.getMachines().add(createStateMachine("state machine 1", 0));
-		smd.getDepartments().add(createStateMachine("state machine 2", 1));
-//		smd.getMachines().add(createStateMachine("state machine 3", 2));
+		xeda.getDepartments().add(createDepartment("Service", 3));
 		
-		return smd;
+		return xeda;
 	}
 	
-	private DepartmentNode createStateMachine(String name, int num){
-		DepartmentNode sm = new DepartmentNode();
-		sm.setName(name);
+	private DepartmentNode createDepartment(String name, int num){
+		DepartmentNode dept = new DepartmentNode();
+		dept.setName(name);
 		
 		ActorNode a = new ActorNode();
 		a.setLocation(new Point(0, 0));
-		a.setId("start");
-		sm.getNodes().add(a);
+		a.setId("frontend");
+		dept.getNodes().add(a);
 
 		for(int i = 0; i < num; i++)
 		{
 			ActorNode b = new ActorNode();
 			b.setLocation(new Point((i+1)* 200, 0));
-			b.setId("state" + i);
-			sm.getNodes().add(b);
+			b.setId("worker " + i);
+			dept.getNodes().add(b);
 			
 			MessageRoute t = new MessageRoute(a, b, RouteStyle.heightFirst);
 			t.setRouteId("route " + i);
 			
 			a = b;
-		}		
-		
-		sm.setConstrain(new Rectangle(10, 10, 100, 100));
-		return sm;
+		}
+
+		dept.setConstrain(new Rectangle(10, 10, 100, 100));
+		return dept;
 	}
 	
 	private XedaDiagramReader reader = new XedaDiagramReader();

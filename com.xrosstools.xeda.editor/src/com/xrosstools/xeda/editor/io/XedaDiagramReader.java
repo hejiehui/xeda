@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.w3c.dom.Document;
@@ -26,26 +25,27 @@ import com.xrosstools.xeda.editor.model.XedaDiagram;
 
 public class XedaDiagramReader implements XedaDiagramConstants {
 	public XedaDiagram getFromDocument(Document doc){
-		XedaDiagram model = new XedaDiagram();
+		XedaDiagram diagram = new XedaDiagram();
 		Element root = doc.getDocumentElement();
 
-		model.setName(getChildNodeText(root, NAME));
-		model.setDescription(getChildNodeText(root, DESCRIPTION));
-		model.setDepartments(readMachines(getChildNode(root, DEPARTMENTS)));
+		diagram.setName(getChildNodeText(root, NAME));
+		diagram.setDescription(getChildNodeText(root, DESCRIPTION));
+		diagram.setDepartments(readDepartments(getChildNode(root, DEPARTMENTS)));
 		
-		return model;
+		return diagram;
 	}
 	
-	private List<DepartmentNode> readMachines(Node machinesNode) {
-		NodeList machines = machinesNode.getChildNodes();
+	private List<DepartmentNode> readDepartments(Node machinesNode) {
+		NodeList nodes = machinesNode.getChildNodes();
 		List<DepartmentNode> machineList = new ArrayList<DepartmentNode>();
-		for(int i = 0;i < machines.getLength(); i++) {
-			machineList.add(readMachine(machines.item(i)));
+		for(int i = 0;i < nodes.getLength(); i++) {
+			if(isValidNode(nodes.item(i)))
+				machineList.add(readDepartment(nodes.item(i)));
 		}
 		return machineList;
 	}
 	
-	private DepartmentNode readMachine(Node departmentNode) {
+	private DepartmentNode readDepartment(Node departmentNode) {
 		DepartmentNode department = new DepartmentNode();
 		department.setName(getChildNodeText(departmentNode, NAME));
 		department.setDescription(getChildNodeText(departmentNode, DESCRIPTION));
@@ -68,7 +68,8 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 		NodeList nodesList = baseNodes.getChildNodes();
 		List<BaseNode> nodes = new ArrayList<BaseNode>();
 		for(int i = 0; i < nodesList.getLength(); i++) {
-			nodes.add(readNode(nodesList.item(i)));
+			if(isValidNode(nodesList.item(i)))
+				nodes.add(readNode(nodesList.item(i)));
 		}
 		return nodes;
 	}
@@ -116,6 +117,8 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 		
 		for(int i = 0; i < transitions.getLength(); i++) {
 			Node node = transitions.item(i);
+			if(!isValidNode(node)) continue;
+				
 			BaseNode source = nodes.get(getAttribute(node, SOURCE_ID));
 			BaseNode target = nodes.get(getAttribute(node, TARGET_ID));
 			MessageRoute route = new MessageRoute(source, target, RouteStyle.valueOf(getAttribute(node, STYLE)));
@@ -154,5 +157,9 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 
 	private int getIntAttribute(Node node, String attributeName) {
 		return Integer.parseInt(getAttribute(node, attributeName));
+	}
+	
+	private boolean isValidNode(Node node) {
+		return !node.getNodeName().equals("#text");
 	}
 }
