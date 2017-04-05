@@ -8,6 +8,8 @@ import java.util.List;
  *
  */
 public interface Actor extends Receiver, Replier, Manageable {
+	void setContext(ActorContext context);
+	
 	/*
 	 * Send a message to receiver
 	 */

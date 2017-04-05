@@ -24,6 +24,8 @@ public class Message<T> implements Serializable {
 	private int priority;
 	private T load;
 	
+	// TODO do we need additional message metadata?
+	
 	public T getLoad() {
 		return load;
 	}

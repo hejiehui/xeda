@@ -1,1 +1,2 @@
 Revise plugin dependency/remove project dependency from build config
+track message receive, success and fail for mesaage processing
