@@ -4,4 +4,6 @@ public class Mailbox {
 	public <T> void send(Message<T> msg) {
 		
 	}
+	
+//	long getWaitingMessageCount();
 }

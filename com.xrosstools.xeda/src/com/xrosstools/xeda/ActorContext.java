@@ -6,5 +6,5 @@ package com.xrosstools.xeda;
  *
  */
 public interface ActorContext {
-	long getWaitingMessageCount();
+
 }
