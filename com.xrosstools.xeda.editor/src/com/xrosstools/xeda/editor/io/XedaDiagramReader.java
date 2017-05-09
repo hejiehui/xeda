@@ -32,33 +32,30 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 		diagram.setDescription(getChildNodeText(root, DESCRIPTION));
 		diagram.setDepartments(readDepartments(getChildNode(root, DEPARTMENTS)));
 		
+		linkNodes(diagram.getDepartments(), getChildNode(root, MESSAGE_ROUTES));
+		
 		return diagram;
 	}
 	
 	private List<DepartmentNode> readDepartments(Node machinesNode) {
 		NodeList nodes = machinesNode.getChildNodes();
 		List<DepartmentNode> machineList = new ArrayList<DepartmentNode>();
-		List<Link> links = new ArrayList<>();
 		for(int i = 0;i < nodes.getLength(); i++) {
 			if(isValidNode(nodes.item(i)))
-				machineList.add(readDepartment(links, nodes.item(i)));
+				machineList.add(readDepartment(nodes.item(i)));
 		}
 		
-		linkNodes(machineList, links);
 		return machineList;
 	}
 	
-	private DepartmentNode readDepartment(List<Link> links, Node departmentNode) {
+	private DepartmentNode readDepartment(Node departmentNode) {
 		DepartmentNode department = new DepartmentNode();
 		department.setId(getChildNodeText(departmentNode, NAME));
 		department.setDescription(getChildNodeText(departmentNode, DESCRIPTION));
 
-		Node baseNodes = getChildNode(departmentNode, nodes);
-		Node transitionsNode = getChildNode(departmentNode, MESSAGE_ROUTES);
+		Node baseNodes = getChildNode(departmentNode, NODES);
 
 		department.setNodes(readNodes(baseNodes));
-		readLinks(links, transitionsNode);
-		
 		
 		department.setConstrain(new Rectangle(
 				getIntAttribute(departmentNode, X_LOC), 
@@ -113,45 +110,29 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 
 	}
 	
-	private static class Link {
-	    String id;
-	    String srcDeptId;
-	    String srcId;
-	    String tgtDeptId;
-	    String tgtId;
-	    RouteStyle style;
-	}
-	
-    private void readLinks(List<Link> links, Node transitionsNode) {
-        NodeList transitions = transitionsNode.getChildNodes();
-        
-        for(int i = 0; i < transitions.getLength(); i++) {
-            Node node = transitions.item(i);
-            if(!isValidNode(node)) continue;
-                
-            Link l = new Link();
-            l.srcId = getAttribute(node, SOURCE_ID);
-            l.srcDeptId = getAttribute(node, SOURCE_DEPT_ID);
-            l.tgtId = getAttribute(node, TARGET_ID);
-            l.tgtDeptId = getAttribute(node, TARGET_DEPT_ID);
-            l.style = RouteStyle.valueOf(getAttribute(node, STYLE));
-            l.id = getAttribute(node, ROUTE_ID);
-            links.add(l);
-        }
-    }
-
-	private void linkNodes(List<DepartmentNode> machines, List<Link> links) {
+	private void linkNodes(List<DepartmentNode> machines, Node routesNode) {
 		Map<String, DepartmentNode> deptMap = new HashMap<String, DepartmentNode>();
 		
 		for(DepartmentNode dept: machines) {
 		    deptMap.put(dept.getId(), dept);
 		}
 		
-		for(Link link: links) {
-			BaseNode source = deptMap.get(link.srcDeptId).getNodeById(link.srcId);
-			BaseNode target = deptMap.get(link.tgtDeptId).getNodeById(link.tgtId);
-			MessageRoute route = new MessageRoute(source, target, link.style);
-			route.setRouteId(link.id);
+		NodeList routes = routesNode.getChildNodes(); 
+        for(int i = 0; i < routes.getLength(); i++) {
+            Node node = routes.item(i);
+            if(!isValidNode(node)) continue;
+                
+            String srcId = getAttribute(node, SOURCE_ID);
+            String srcDeptId = getAttribute(node, SOURCE_DEPT_ID);
+            String tgtId = getAttribute(node, TARGET_ID);
+            String tgtDeptId = getAttribute(node, TARGET_DEPT_ID);
+            RouteStyle style = RouteStyle.valueOf(getAttribute(node, STYLE));
+            String id = getAttribute(node, ROUTE_ID);
+
+			BaseNode source = deptMap.get(srcDeptId).getNodeById(srcId);
+			BaseNode target = deptMap.get(tgtDeptId).getNodeById(tgtId);
+			MessageRoute route = new MessageRoute(source, target, style);
+			route.setRouteId(id);
 		}
 	}
 

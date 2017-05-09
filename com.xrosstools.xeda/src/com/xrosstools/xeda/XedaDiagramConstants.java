@@ -10,7 +10,7 @@ public interface XedaDiagramConstants {
 	String REFERENCE = "reference";
 	String ADDRESS = "address";
 	
-	String nodes = "nodes";
+	String NODES = "nodes";
 	String ACTOR = "actor";
 	String QUEUE = "queue";
 	String TOPIC = "topic";

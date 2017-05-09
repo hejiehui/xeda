@@ -27,8 +27,11 @@ public class XedaDiagramWriter implements XedaDiagramConstants {
 
 			createNameDesc(doc, root, model.getName(), model.getDescription());			
 			
-			Element machinesNode = createNode(doc, root, DEPARTMENTS);
-			writeDepartments(doc, machinesNode, model);
+			Element deptsNode = createNode(doc, root, DEPARTMENTS);
+			Element routesNode = createNode(doc, root, MESSAGE_ROUTES);
+			
+			writeDepartments(doc, deptsNode, model.getDepartments());
+			writeRoutes(doc, routesNode, model.getDepartments());
 
 			return doc;
 		} catch (Exception e) {
@@ -37,10 +40,10 @@ public class XedaDiagramWriter implements XedaDiagramConstants {
 		}
 	}
 	
-	private void writeDepartments(Document doc, Element departmentsNode, XedaDiagram model) {
-		for(DepartmentNode machine: model.getDepartments()) {
+	private void writeDepartments(Document doc, Element departmentsNode, List<DepartmentNode> depts) {
+		for(DepartmentNode dept: depts) {
 			Element departmentNode = createNode(doc, departmentsNode, DEPARTMENT);
-			writeDepartment(doc, departmentNode, machine);
+			writeDepartment(doc, departmentNode, dept);
 		}
 	}
 	
@@ -52,20 +55,20 @@ public class XedaDiagramWriter implements XedaDiagramConstants {
 		departmentNode.setAttribute(WIDTH, String.valueOf(constrain.width));
 		departmentNode.setAttribute(HEIGHT, String.valueOf(constrain.height));
 		
-		Element actorsNode = createNode(doc, departmentNode, nodes);
-		Element transitionsNode = createNode(doc, departmentNode, MESSAGE_ROUTES);
-		departmentNode.appendChild(actorsNode);
-		departmentNode.appendChild(transitionsNode);
-
-		writeNodesAndTransitions(doc, actorsNode, department.getNodes(), transitionsNode);
+		Element actorsNode = createNode(doc, departmentNode, NODES);
+		
+		for(BaseNode node: department.getNodes()) {
+			Element baseNode = (Element)doc.createElement(getNodeType(node));
+			actorsNode.appendChild(baseNode);
+			writeNode(doc, baseNode, node);
+		}
 	}
 	
-	private void writeNodesAndTransitions(Document doc, Element statesNode, List<BaseNode> nodes, Element transitionsNode) {
-		for(BaseNode node: nodes) {
-			Element baseNode = (Element)doc.createElement(getNodeType(node));
-			statesNode.appendChild(baseNode);
-			writeNode(doc, baseNode, node);
-			writeTransitions(doc, transitionsNode, node.getOutputs());
+	private void writeRoutes(Document doc, Element routesNode, List<DepartmentNode> depts) {
+		for(DepartmentNode machine: depts) {
+			for(BaseNode node: machine.getNodes()) {
+				writeTransitions(doc, routesNode, node.getOutputs());
+			}
 		}
 	}
 

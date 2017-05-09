@@ -106,6 +106,10 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 
 	public void setId(String id) {
 		this.id = id;
+		
+		for(BaseNode n: nodes) 
+		    n.setDepartmentId(id);
+		
 		firePropertyChange(PROP_ID);
 	}
 
@@ -130,11 +134,11 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
         return null;
     }
 
-	public void setNodes(List<BaseNode> nodes) {
-		this.nodes = nodes;
+	public void setNodes(List<BaseNode> newNodes) {
+		this.nodes.clear();
 		
-		for(BaseNode n: nodes) 
-		    n.setDepartmentId(id);
+		for(BaseNode n: newNodes) 
+		    addNode(n);
 		
 		firePropertyChange(STATE_NODE);
 	}
