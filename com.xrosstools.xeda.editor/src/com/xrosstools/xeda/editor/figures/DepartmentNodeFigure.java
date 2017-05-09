@@ -46,8 +46,8 @@ public class DepartmentNodeFigure extends Figure implements XedaConstants{
         setBorder(new LineBorder(ColorConstants.lightGray, 1));
     }
 
-    public void setName(String name, String toolTip) {
-    	label.setText(name);
+    public void setId(String id, String toolTip) {
+    	label.setText(id);
     	label.setToolTip(new Label(toolTip));
         repaint();
     }

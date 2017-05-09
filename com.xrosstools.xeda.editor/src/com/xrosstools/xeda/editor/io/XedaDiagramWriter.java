@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -46,7 +45,7 @@ public class XedaDiagramWriter implements XedaDiagramConstants {
 	}
 	
 	private void writeDepartment(Document doc, Element departmentNode, DepartmentNode department) {
-		createNameDesc(doc, departmentNode, department.getName(), department.getDescription());
+		createNameDesc(doc, departmentNode, department.getId(), department.getDescription());
 		Rectangle constrain = department.getConstrain();
 		departmentNode.setAttribute(X_LOC, String.valueOf(constrain.x));
 		departmentNode.setAttribute(Y_LOC, String.valueOf(constrain.y));
@@ -108,7 +107,9 @@ public class XedaDiagramWriter implements XedaDiagramConstants {
 				node.setAttribute(ROUTE_ID, transition.getRouteId());
 			node.setAttribute(SOURCE_ID, transition.getSource().getId());
 			node.setAttribute(TARGET_ID, transition.getTarget().getId());
-			node.setAttribute(STYLE, transition.getStyle().name());
+			node.setAttribute(SOURCE_DEPT_ID, transition.getSource().getDepartmentId());
+            node.setAttribute(TARGET_DEPT_ID, transition.getTarget().getDepartmentId());
+            node.setAttribute(STYLE, transition.getStyle().name());
 		}
 	}
 	

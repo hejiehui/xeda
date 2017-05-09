@@ -11,6 +11,7 @@ import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 public abstract class BaseNode implements XedaConstants, IPropertySource {
 	private String id;
+	private String departmentId;
 	private String description;
 	private List<MessageRoute> inputs = new ArrayList<MessageRoute>();
 	private List<MessageRoute> outputs = new ArrayList<MessageRoute>();
@@ -89,7 +90,16 @@ public abstract class BaseNode implements XedaConstants, IPropertySource {
 		firePropertyChange(PROP_ID);
 	}
 
-	public String getDescription() {
+	public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+        firePropertyChange(PROP_ID);
+    }
+
+    public String getDescription() {
 		return description;
 	}
 

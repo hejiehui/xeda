@@ -69,7 +69,7 @@ public class DepartmentPart extends AbstractGraphicalEditPart implements Propert
     	DepartmentNode department = (DepartmentNode) getModel();
     	DepartmentNodeFigure figure = (DepartmentNodeFigure)getFigure();
     	
-       	figure.setName(department.getName(), department.getDescription());
+       	figure.setId(department.getId(), department.getDescription());
         ((GraphicalEditPart) getParent()).setLayoutConstraint(this, figure, department.getConstrain());
     }
 

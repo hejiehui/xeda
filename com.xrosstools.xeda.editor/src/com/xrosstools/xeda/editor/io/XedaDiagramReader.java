@@ -38,23 +38,28 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 	private List<DepartmentNode> readDepartments(Node machinesNode) {
 		NodeList nodes = machinesNode.getChildNodes();
 		List<DepartmentNode> machineList = new ArrayList<DepartmentNode>();
+		List<Link> links = new ArrayList<>();
 		for(int i = 0;i < nodes.getLength(); i++) {
 			if(isValidNode(nodes.item(i)))
-				machineList.add(readDepartment(nodes.item(i)));
+				machineList.add(readDepartment(links, nodes.item(i)));
 		}
+		
+		linkNodes(machineList, links);
 		return machineList;
 	}
 	
-	private DepartmentNode readDepartment(Node departmentNode) {
+	private DepartmentNode readDepartment(List<Link> links, Node departmentNode) {
 		DepartmentNode department = new DepartmentNode();
-		department.setName(getChildNodeText(departmentNode, NAME));
+		department.setId(getChildNodeText(departmentNode, NAME));
 		department.setDescription(getChildNodeText(departmentNode, DESCRIPTION));
 
 		Node baseNodes = getChildNode(departmentNode, nodes);
 		Node transitionsNode = getChildNode(departmentNode, MESSAGE_ROUTES);
 
 		department.setNodes(readNodes(baseNodes));
-		linkNodes(department, transitionsNode);
+		readLinks(links, transitionsNode);
+		
+		
 		department.setConstrain(new Rectangle(
 				getIntAttribute(departmentNode, X_LOC), 
 				getIntAttribute(departmentNode, Y_LOC),
@@ -107,22 +112,46 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 		}
 
 	}
-	private void linkNodes(DepartmentNode machine, Node transitionsNode) {
-		NodeList transitions = transitionsNode.getChildNodes();
-		Map<String, BaseNode> nodes = new HashMap<String, BaseNode>();
+	
+	private static class Link {
+	    String id;
+	    String srcDeptId;
+	    String srcId;
+	    String tgtDeptId;
+	    String tgtId;
+	    RouteStyle style;
+	}
+	
+    private void readLinks(List<Link> links, Node transitionsNode) {
+        NodeList transitions = transitionsNode.getChildNodes();
+        
+        for(int i = 0; i < transitions.getLength(); i++) {
+            Node node = transitions.item(i);
+            if(!isValidNode(node)) continue;
+                
+            Link l = new Link();
+            l.srcId = getAttribute(node, SOURCE_ID);
+            l.srcDeptId = getAttribute(node, SOURCE_DEPT_ID);
+            l.tgtId = getAttribute(node, TARGET_ID);
+            l.tgtDeptId = getAttribute(node, TARGET_DEPT_ID);
+            l.style = RouteStyle.valueOf(getAttribute(node, STYLE));
+            l.id = getAttribute(node, ROUTE_ID);
+            links.add(l);
+        }
+    }
+
+	private void linkNodes(List<DepartmentNode> machines, List<Link> links) {
+		Map<String, DepartmentNode> deptMap = new HashMap<String, DepartmentNode>();
 		
-		for(BaseNode node: machine.getNodes()) {
-			nodes.put(node.getId(), node);
+		for(DepartmentNode dept: machines) {
+		    deptMap.put(dept.getId(), dept);
 		}
 		
-		for(int i = 0; i < transitions.getLength(); i++) {
-			Node node = transitions.item(i);
-			if(!isValidNode(node)) continue;
-				
-			BaseNode source = nodes.get(getAttribute(node, SOURCE_ID));
-			BaseNode target = nodes.get(getAttribute(node, TARGET_ID));
-			MessageRoute route = new MessageRoute(source, target, RouteStyle.valueOf(getAttribute(node, STYLE)));
-			route.setRouteId(getAttribute(node, ROUTE_ID));
+		for(Link link: links) {
+			BaseNode source = deptMap.get(link.srcDeptId).getNodeById(link.srcId);
+			BaseNode target = deptMap.get(link.tgtDeptId).getNodeById(link.tgtId);
+			MessageRoute route = new MessageRoute(source, target, link.style);
+			route.setRouteId(link.id);
 		}
 	}
 

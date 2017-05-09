@@ -27,6 +27,9 @@ public interface XedaDiagramConstants {
 	String ROUTE = "route";
 	String ROUTE_ID = "route_id";
 	String SOURCE_ID = "source_id";
+	String SOURCE_DEPT_ID = "source_dept_id";
+	
 	String TARGET_ID = "target_id";
+	String TARGET_DEPT_ID = "target_dept_id";
 	String STYLE = "style";
 }

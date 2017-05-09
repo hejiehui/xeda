@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 public class DepartmentNode implements XedaConstants, IPropertySource {
-	private String name;
+	private String id;
 	private String description;
 
 	private List<BaseNode> nodes = new ArrayList<BaseNode>();
@@ -43,7 +42,7 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 	
 	public Object getPropertyValue(Object propName) {
 		if (PROP_ID.equals(propName))
-			return getValue(name);
+			return getValue(id);
 		if (PROP_DESRIPTION.equals(propName))
 			return getValue(description);
 		
@@ -52,7 +51,7 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 
 	public void setPropertyValue(Object propName, Object value){
 		if (PROP_ID.equals(propName))
-			setName((String)value);
+			setId((String)value);
 		if (PROP_DESRIPTION.equals(propName))
 			setDescription((String)value);
 	}
@@ -79,6 +78,7 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 
 	public void addNode(BaseNode node){
 		nodes.add(node);
+		node.setDepartmentId(id);
 		firePropertyChange(STATE_NODE);
 	}
 
@@ -100,12 +100,12 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 		listeners.firePropertyChange(PROP_LOCATION, null, constrain);
 	}
 
-	public String getName() {
-		return name;
+	public String getId() {
+		return id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setId(String id) {
+		this.id = id;
 		firePropertyChange(PROP_ID);
 	}
 
@@ -122,8 +122,20 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 		return nodes;
 	}
 
+    public BaseNode getNodeById(String id) {
+        for(BaseNode n: nodes)
+            if(id.equals(n.getId()))
+                return n;
+
+        return null;
+    }
+
 	public void setNodes(List<BaseNode> nodes) {
 		this.nodes = nodes;
+		
+		for(BaseNode n: nodes) 
+		    n.setDepartmentId(id);
+		
 		firePropertyChange(STATE_NODE);
 	}
 	

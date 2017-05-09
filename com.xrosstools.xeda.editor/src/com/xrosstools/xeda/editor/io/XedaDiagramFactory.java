@@ -23,9 +23,9 @@ public class XedaDiagramFactory implements XedaConstants{
 		return xeda;
 	}
 	
-	private DepartmentNode createDepartment(String name, int num){
+	private DepartmentNode createDepartment(String id, int num){
 		DepartmentNode dept = new DepartmentNode();
-		dept.setName(name);
+		dept.setId(id);
 		
 		ActorNode a = new ActorNode();
 		a.setLocation(new Point(0, 0));

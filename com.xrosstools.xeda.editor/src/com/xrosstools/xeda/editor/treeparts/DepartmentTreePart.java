@@ -27,7 +27,7 @@ public class DepartmentTreePart extends AbstractTreeEditPart implements Property
     
     protected String getText() {
     	DepartmentNode stateMachine = (DepartmentNode)getModel();
-    	return stateMachine.getName();
+    	return stateMachine.getId();
     }
     
     protected Image getImage() {
