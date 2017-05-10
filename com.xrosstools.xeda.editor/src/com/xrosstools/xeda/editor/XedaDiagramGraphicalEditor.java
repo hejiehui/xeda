@@ -3,6 +3,7 @@ package com.xrosstools.xeda.editor;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.EventObject;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -12,6 +13,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.MultiStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.RootEditPart;
 import org.eclipse.gef.commands.CommandStackListener;
@@ -25,6 +29,7 @@ import org.eclipse.gef.ui.parts.ContentOutlinePage;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithPalette;
 import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -87,10 +92,27 @@ public class XedaDiagramGraphicalEditor extends GraphicalEditorWithPalette {
     protected void initializeGraphicalViewer() {
         getGraphicalViewer().setContents(diagram);
     }
+    
+    private boolean validate() {
+        List<String> errorMesagae = diagram.validate();
+        if(errorMesagae.size() == 0)
+            return true;
+        
+        MultiStatus ms = new MultiStatus(Activator.PLUGIN_ID, 1, "The diagram model contains error(s)", null);
+        for(String msg: errorMesagae) {
+            IStatus sta = new Status(IStatus.ERROR, Activator.PLUGIN_ID, msg);
+            ms.add(sta);
+        }
+        ErrorDialog.openError(getSite().getWorkbenchWindow().getShell(), "XEDA Diagram validation error", "This diagram can not be saved", ms);
+        return false;
+    }
 
     public void doSave(IProgressMonitor monitor) {
 		try {
-			IFile file = ((IFileEditorInput)getEditorInput()).getFile();
+		    if(!validate())
+		        return;
+			
+		    IFile file = ((IFileEditorInput)getEditorInput()).getFile();
 			file.setContents(new ByteArrayInputStream(writeAsXML().getBytes()), 
 					true, false, monitor);
 			getCommandStack().markSaveLocation();
@@ -105,7 +127,10 @@ public class XedaDiagramGraphicalEditor extends GraphicalEditorWithPalette {
     }
 
     public void doSaveAs() {
-    	SaveAsDialog dialog= new SaveAsDialog(getSite().getWorkbenchWindow().getShell());
+        if(!validate())
+            return;
+
+        SaveAsDialog dialog= new SaveAsDialog(getSite().getWorkbenchWindow().getShell());
     	dialog.setOriginalFile(((IFileEditorInput)getEditorInput()).getFile());
     	dialog.open();
     	IPath path= dialog.getResult();

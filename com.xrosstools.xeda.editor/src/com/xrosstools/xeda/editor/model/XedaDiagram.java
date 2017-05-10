@@ -2,7 +2,9 @@ package com.xrosstools.xeda.editor.model;
 
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
@@ -65,6 +67,20 @@ public class XedaDiagram implements XedaConstants, IPropertySource {
 
 	private String getValue(String value) {
 		return value == null? "" : value;
+	}
+	
+	public List<String> validate() {
+	    List<String> errorMessages = new ArrayList<>();
+	    Set<String> ids = new HashSet<>();
+
+	    for(DepartmentNode dept:  departments) {
+	        if(ids.contains(dept.getId())) {
+	            errorMessages.add("Duplicate department id is detected: " + dept.getId());
+	        }
+	        dept.validate(errorMessages);
+	    }
+	    
+	    return errorMessages;
 	}
 
 	public List<DepartmentNode> getDepartments() {

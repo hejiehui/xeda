@@ -24,8 +24,6 @@ public interface XedaActionConstants {
 	String OPEN_TRANSIT_ACTION = "open_transit_action";
 	String OPEN_ENTRY_ACTION = "open_entry_action";
 	String OPEN_EXIT_ACTION = "open_exit_action";
-
-
 	
 	String ALIGN_LEFT = "alignment_left";
 	String ALIGN_CENTER = "alignment_center";

@@ -1,5 +1,7 @@
 package com.xrosstools.xeda.editor.model;
 
+import java.util.List;
+
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
@@ -24,6 +26,16 @@ public class QueueNode extends BaseNode {
 			setAddress((String) value);
 	}
 
+    public void validate(List<String> errorMessages) {
+        if(isEmpty(getId())) {
+            errorMessages.add("Query Id is notset");
+        }
+        
+        if(isEmpty(address)) {
+            errorMessages.add("Query \"" + getId() + "\" Address is not set");
+        }
+    }
+    
 	public String getAddress() {
 		return address;
 	}

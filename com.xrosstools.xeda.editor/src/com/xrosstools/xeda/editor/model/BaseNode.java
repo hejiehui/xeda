@@ -80,7 +80,13 @@ public abstract class BaseNode implements XedaConstants, IPropertySource {
 	public String getValue(String value) {
 		return value == null ? "" : value;
 	}
-
+	
+	public boolean isEmpty(String value) {
+	    return value == null || value.trim().length() == 0;
+	}
+	
+	public abstract void validate(List<String> errorMessages);
+	
 	public String getId() {
 		return id;
 	}

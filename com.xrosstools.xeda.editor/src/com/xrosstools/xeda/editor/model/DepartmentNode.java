@@ -2,7 +2,9 @@ package com.xrosstools.xeda.editor.model;
 
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -69,6 +71,21 @@ public class DepartmentNode implements XedaConstants, IPropertySource {
 		
 	private String getValue(String value) {
 		return value == null? "" : value;
+	}
+	
+	public void validate(List<String> errorMessages) {
+	    if(id == null || id.trim().length() == 0) {
+	        errorMessages.add("Department Id is empty");
+	    }
+	                
+        Set<String> ids = new HashSet<>();
+	    for(BaseNode node: nodes) {
+            if(ids.contains(node.getId())) {
+                errorMessages.add(String.format("Duplicate node id in department %s is detected: %s", id, node.getId()));
+            }
+            
+            node.validate(errorMessages);
+        }
 	}
 
 	public void removeNode(BaseNode node){

@@ -1,5 +1,7 @@
 package com.xrosstools.xeda.editor.model;
 
+import java.util.List;
+
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
@@ -35,6 +37,16 @@ public class ActorNode extends BaseNode {
 			setErrorHandler((String) value);
 		if (PROP_REFERENCE.equals(propName))
 			setReference((String) value);
+	}
+	
+	public void validate(List<String> errorMessages) {
+        if(isEmpty(getId())) {
+            errorMessages.add("Actor Id is notset");
+        }
+        
+        if(isEmpty(actorClassName)) {
+            errorMessages.add("Actor \"" + getId() + "\" actorClassName is not set");
+        }
 	}
 	
 	public String getActorClassName() {
