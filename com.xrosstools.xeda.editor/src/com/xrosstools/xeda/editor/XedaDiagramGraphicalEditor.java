@@ -113,7 +113,7 @@ public class XedaDiagramGraphicalEditor extends GraphicalEditorWithPalette {
 		        return;
 			
 		    IFile file = ((IFileEditorInput)getEditorInput()).getFile();
-			file.setContents(new ByteArrayInputStream(writeAsXML().getBytes()), 
+			file.setContents(new ByteArrayInputStream(writeAsXML().getBytes(file.getCharset())), 
 					true, false, monitor);
 			getCommandStack().markSaveLocation();
 		}
@@ -144,7 +144,7 @@ public class XedaDiagramGraphicalEditor extends GraphicalEditorWithPalette {
     	WorkspaceModifyOperation op= new WorkspaceModifyOperation() {
     		public void execute(final IProgressMonitor monitor) throws CoreException {
     			try {
-    				file.create(new ByteArrayInputStream(writeAsXML().getBytes("utf-8")), true, monitor);
+    				file.create(new ByteArrayInputStream(writeAsXML().getBytes(file.getCharset())), true, monitor);
     			} 
     			catch (Exception e) {
     				e.printStackTrace();
