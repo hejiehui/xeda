@@ -11,10 +11,12 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.IWorkbenchPart;
 
 import com.xrosstools.xeda.editor.ContextMenuBuilder;
+import com.xrosstools.xeda.editor.commands.CreateMessageRouteCommand;
 import com.xrosstools.xeda.editor.model.ActorNode;
 import com.xrosstools.xeda.editor.model.BaseNode;
 import com.xrosstools.xeda.editor.model.MessageRoute;
@@ -25,19 +27,25 @@ import com.xrosstools.xeda.editor.policies.DepartmentGraphicNodeEditPolicy;
 
 public abstract class BaseNodePart extends AbstractGraphicalEditPart implements XedaConstants, PropertyChangeListener, NodeEditPart, ContextMenuBuilder {
 	public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
-        return getAnchor(true, ((MessageRoute)connection.getModel()).getStyle());
+		return new CommonStyleAnchor(getFigure(), ((MessageRoutePart)connection).getStyle(), true);
 	}
 
 	public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
-        return getAnchor(false, ((MessageRoute)connection.getModel()).getStyle());
+		return new CommonStyleAnchor(getFigure(), ((MessageRoutePart)connection).getStyle(), false);
 	}
 
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
-        return getAnchor(true, RouteStyle.direct);
+		CreateConnectionRequest req = (CreateConnectionRequest)request;
+		CreateMessageRouteCommand cmd = (CreateMessageRouteCommand)req.getStartCommand();
+        
+        return new CommonStyleAnchor(getFigure(), cmd.getStyle(), true);
 	}
 
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
-        return getAnchor(false, RouteStyle.direct);
+        CreateConnectionRequest req = (CreateConnectionRequest)request;
+        CreateMessageRouteCommand cmd = (CreateMessageRouteCommand)req.getStartCommand();
+        
+        return new CommonStyleAnchor(getFigure(), cmd.getStyle(), false);
 	}
 	
 	private ConnectionAnchor getAnchor(boolean isSource, RouteStyle style) {

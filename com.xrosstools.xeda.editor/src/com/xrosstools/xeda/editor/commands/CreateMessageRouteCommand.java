@@ -54,4 +54,8 @@ public class CreateMessageRouteCommand extends Command {
 		source.removeOutput(route);
 		target.removeInput(route);
 	}
+
+	public RouteStyle getStyle() {
+		return style;
+	}
 }
