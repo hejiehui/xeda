@@ -87,11 +87,11 @@ public class XedaDiagramWriter implements XedaDiagramConstants {
 		
 		if(node instanceof QueueNode) {
 			QueueNode queue = (QueueNode)node;
-			createTextNode(doc, baseNode, ADDRESS, queue.getAddress());
+			baseNode.setAttribute(ADDRESS, queue.getAddress());
 		} else
 		if(node instanceof TopicNode) {
 			TopicNode topic = (TopicNode)node;
-			createTextNode(doc, baseNode, ADDRESS, topic.getAddress());
+			baseNode.setAttribute(ADDRESS, topic.getAddress());
 		} else {
 			ActorNode actor = (ActorNode)node;
 			createTextNode(doc, baseNode, REFERENCE, actor.getReference());
