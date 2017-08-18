@@ -4,7 +4,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
@@ -20,7 +19,6 @@ import com.xrosstools.xeda.editor.commands.CreateMessageRouteCommand;
 import com.xrosstools.xeda.editor.model.ActorNode;
 import com.xrosstools.xeda.editor.model.BaseNode;
 import com.xrosstools.xeda.editor.model.MessageRoute;
-import com.xrosstools.xeda.editor.model.RouteStyle;
 import com.xrosstools.xeda.editor.model.XedaConstants;
 import com.xrosstools.xeda.editor.policies.BaseNodeComponentEditPolicy;
 import com.xrosstools.xeda.editor.policies.DepartmentGraphicNodeEditPolicy;
@@ -46,13 +44,6 @@ public abstract class BaseNodePart extends AbstractGraphicalEditPart implements 
         CreateMessageRouteCommand cmd = (CreateMessageRouteCommand)req.getStartCommand();
         
         return new CommonStyleAnchor(getFigure(), cmd.getStyle(), false);
-	}
-	
-	private ConnectionAnchor getAnchor(boolean isSource, RouteStyle style) {
-		if(style == RouteStyle.direct)
-			return new ChopboxAnchor(getFigure());
-		
-		return new BaseNodeAnchor(getFigure(), isSource, style);
 	}
 	
 	protected void createEditPolicies() {
