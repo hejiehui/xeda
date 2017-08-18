@@ -28,7 +28,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
 public class NewXedaDiagramWizard extends Wizard implements INewWizard {
-	private String TEMPLATE_FILE = "/template/emptyTemplate.xstate";
+	private String TEMPLATE_FILE = "/template/emptyTemplate.xeda";
 	private NewXedaDiagramWizardPage page;
 	private ISelection selection;
 

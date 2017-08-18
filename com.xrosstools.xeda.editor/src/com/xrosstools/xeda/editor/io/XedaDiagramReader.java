@@ -38,8 +38,11 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 	}
 	
 	private List<DepartmentNode> readDepartments(Node machinesNode) {
+	    List<DepartmentNode> machineList = new ArrayList<DepartmentNode>();
+	    if(machinesNode == null)
+	        return machineList;
+
 		NodeList nodes = machinesNode.getChildNodes();
-		List<DepartmentNode> machineList = new ArrayList<DepartmentNode>();
 		for(int i = 0;i < nodes.getLength(); i++) {
 			if(isValidNode(nodes.item(i)))
 				machineList.add(readDepartment(nodes.item(i)));
@@ -111,6 +114,9 @@ public class XedaDiagramReader implements XedaDiagramConstants {
 	}
 	
 	private void linkNodes(List<DepartmentNode> machines, Node routesNode) {
+	    if(routesNode == null)
+	        return;
+	    
 		Map<String, DepartmentNode> deptMap = new HashMap<String, DepartmentNode>();
 		
 		for(DepartmentNode dept: machines) {
